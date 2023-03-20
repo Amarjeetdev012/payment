@@ -1,4 +1,4 @@
-import Razorpay from 'razorpay'
+import Razorpay from 'razorpay';
 
 export const instance = new Razorpay({
   key_id: process.env.KEY_ID,

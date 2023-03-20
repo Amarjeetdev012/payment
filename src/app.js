@@ -13,6 +13,10 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
 app.use('/api', paymentRouter);
 
 export default app;
