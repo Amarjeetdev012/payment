@@ -1,0 +1,26 @@
+<button id="rzp-button1">Pay</button>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var options = {
+        key: "rzp_test_dvLgwKDK60M5Xv",
+        amount: 60000,
+        currency: 'USD',
+        name: 'Acme Corp',
+        order_id: 'order_LTkXaNQ977hZaE',
+    };
+    var rzp1 = new Razorpay(options);
+    console.log('zp1', rzp1);
+    rzp1.on('payment.failed', function (response) {
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+    });
+    document.getElementById('rzp-button1').onclick = function (e) {
+        rzp1.open();
+        e.preventDefault();
+    }
+</script>
