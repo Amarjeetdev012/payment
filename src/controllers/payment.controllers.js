@@ -9,18 +9,18 @@ export const createOrder = async (req, res) => {
   try {
     const { amount } = req.body;
     const options = {
-      amount: Number(amount),
+      amount: Number(amount*100),
       currency: 'INR',
     };
     const order = await instance.orders.create(options);
     const orderData = await Order.create(order);
-    res.render('payment', { data: orderData });
+    // res.status(200).send({ status: true, orderData });
+    return res.render('payment', { data: orderData });
   } catch (error) {
     return res.status(500).send(error);
   }
 };
 
-// export const paymentsuccess = (req,res)
 export const paymentVerification = async (req, res) => {
   try {
     console.log('req', req.body);
@@ -41,9 +41,6 @@ export const paymentVerification = async (req, res) => {
         razorpay_payment_id,
         razorpay_signature,
       });
-      //   res.redirect(
-      //     `http://localhost:3000/paymentsuccess?reference=${razorpay_payment_id}`
-      //   );
       return res
         .status(200)
         .send({ status: true, message: 'payment successfully' });
