@@ -15,7 +15,6 @@ export const createOrder = async (req, res) => {
     const order = await instance.orders.create(options);
     order.amount = amount;
     const orderData = await Order.create(order);
-    console.log('orderData', orderData);
     return res.render('payment', { data: orderData });
   } catch (error) {
     return res.status(500).send(error);
@@ -24,37 +23,38 @@ export const createOrder = async (req, res) => {
 
 export const paymentVerification = async (req, res) => {
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
-      req.body;
-      const order = await Order.findOne({id:razorpay_order_id})
-      if(!order){return res.status(400).send({status:false,message:'your payment time expired try again'})}
-    const data = razorpay_order_id + '|' + razorpay_payment_id;
-    const expectedSignature = crypto
-      .createHmac('sha256', key_secret)
-      .update(data.toString())
-      .digest('hex');
-    console.log('expectedSignature', expectedSignature);
-    const isAuthentic = expectedSignature === razorpay_signature;
-    if (isAuthentic) {
-      // Database comes here
-      await Payment.create({
-        razorpay_order_id,
-        razorpay_payment_id,
-        razorpay_signature,
-      });
+    let data;
+    let expectedSignature;
+    if (req.body.event === 'payment.captured') {
+      data =
+        req.body.payload.payment.entity.order_id +
+        '|' +
+        req.body.payload.payment.entity.id;
+      expectedSignature = crypto
+        .createHmac('sha256', key_secret)
+        .update(data.toString())
+        .digest('hex');
+      console.log('expectedSignature', expectedSignature);
       await Order.findOneAndUpdate(
-        { id: razorpay_order_id },
+        { id: req.body.payload.payment.entity.order_id },
         { amount_paid: true, amount_due: 0, status: 'paid' }
       );
+      const result = {};
+      result.razorpay_order_id = data.split('|')[0];
+      result.razorpay_payment_id = data.split('|')[1];
+      result.razorpay_signature = expectedSignature;
+      await Payment.create(result);
       return res
         .status(200)
         .send({ status: true, message: 'payment successfully' });
-    } else {
-      res.status(400).json({
-        success: false,
-      });
     }
   } catch (error) {
     return res.status(500).send(error);
+  }
+};
+
+export const failPayment = (req, res) => {
+  if (req.body.event === 'payment.failed') {
+    return res.status(400).send({ status: false, message: 'payment failed' });
   }
 };
