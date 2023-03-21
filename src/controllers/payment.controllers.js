@@ -9,12 +9,13 @@ export const createOrder = async (req, res) => {
   try {
     const { amount } = req.body;
     const options = {
-      amount: Number(amount*100),
+      amount: Number(amount * 100),
       currency: 'INR',
     };
     const order = await instance.orders.create(options);
+    order.amount = amount;
     const orderData = await Order.create(order);
-    // res.status(200).send({ status: true, orderData });
+    console.log('orderData', orderData);
     return res.render('payment', { data: orderData });
   } catch (error) {
     return res.status(500).send(error);
@@ -23,11 +24,11 @@ export const createOrder = async (req, res) => {
 
 export const paymentVerification = async (req, res) => {
   try {
-    console.log('req', req.body);
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
       req.body;
+      const order = await Order.findOne({id:razorpay_order_id})
+      if(!order){return res.status(400).send({status:false,message:'your payment time expired try again'})}
     const data = razorpay_order_id + '|' + razorpay_payment_id;
-    console.log('razorpay_signature', razorpay_signature);
     const expectedSignature = crypto
       .createHmac('sha256', key_secret)
       .update(data.toString())
@@ -41,6 +42,10 @@ export const paymentVerification = async (req, res) => {
         razorpay_payment_id,
         razorpay_signature,
       });
+      await Order.findOneAndUpdate(
+        { id: razorpay_order_id },
+        { amount_paid: true, amount_due: 0, status: 'paid' }
+      );
       return res
         .status(200)
         .send({ status: true, message: 'payment successfully' });

@@ -9,22 +9,15 @@ const orderSchema = new mongoose.Schema(
       type: String,
     },
     amount: {
-      type: String,
+      type: Number,
     },
     amount_paid: {
-      type: String,
+      type: Boolean,
     },
     amount_due: {
       type: String,
     },
     currency: {
-      type: String,
-      enum: ['INR', 'USD'],
-    },
-    receipt: {
-      type: String,
-    },
-    offer_id: {
       type: String,
     },
     status: {

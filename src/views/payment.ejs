@@ -1,28 +1,19 @@
-<h1>click here to Pay <%=data.amount /100%>
-</h1>
+<h1>click here to pay <%= data.amount %> here</h1>
 <br>
 <button id="rzp-button1">Pay</button>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
     var options = {
         key: "rzp_test_dvLgwKDK60M5Xv",
-        amount: `<%= Number(data.amount) %>`,
-        currency: '<%= data.currency %>',
+        amount: `<%= data.amount %>`,
+        currency: `<%= data.currency %>`,
         name: 'old monk shop',
-        order_id: '<%= data.id %>',
-        callback_url: 'https://razorpay-ahec.onrender.com/api/paymentverify',
+        order_id: `<%= data.id %>`,
+        callback_url: 'http://localhost:3000/api/paymentverify',
     };
     var rzp1 = new Razorpay(options);
-    console.log('zp1', rzp1);
     rzp1.on('payment.failed', function (response) {
-        console.log('response', response);
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
+        res.redirect()
     });
     document.getElementById('rzp-button1').onclick = function (e) {
         rzp1.open();

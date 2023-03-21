@@ -5,7 +5,7 @@ import {
 } from '../controllers/payment.controllers.js';
 
 const router = express.Router();
-// router.get()
+
 router.post('/checkout', createOrder);
 router.post('/paymentverify', paymentVerification);
 
