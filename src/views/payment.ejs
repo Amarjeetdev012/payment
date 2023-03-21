@@ -10,7 +10,7 @@
         currency: '<%= data.currency %>',
         name: 'old monk shop',
         order_id: '<%= data.id %>',
-        callback_url: 'http://localhost:3000/api/paymentverify',
+        callback_url: 'https://razorpay-ahec.onrender.com/api/paymentverify',
     };
     var rzp1 = new Razorpay(options);
     console.log('zp1', rzp1);
