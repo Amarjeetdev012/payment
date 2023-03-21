@@ -43,10 +43,12 @@ export const paymentVerification = async (req, res) => {
       result.razorpay_order_id = data.split('|')[0];
       result.razorpay_payment_id = data.split('|')[1];
       result.razorpay_signature = expectedSignature;
-
-      const verify = await instance.payments.fetch(data.split('|')[0]);
-      console.log('verify', verify);
-
+      instance.payments.fetch(data.split('|')[0], '', (err, data) => {
+        if (err) {
+          return res.status(400).send({ status: false, message: err });
+        }
+        console.log('data',data);
+      });
       await Payment.create(result);
       return res
         .status(200)
