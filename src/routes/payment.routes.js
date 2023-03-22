@@ -1,14 +1,14 @@
 import express from 'express';
 import {
-  createOrder,
   failPayment,
+  payment,
   verifyPayment,
 } from '../controllers/payment.controllers.js';
 
 const router = express.Router();
 
-router.post('/checkout', createOrder);
+router.post('/payment', payment);
 router.post('/fail', failPayment);
-router.post('/paymentverify', verifyPayment);
+router.post('/verify', verifyPayment);
 
 export default router;
