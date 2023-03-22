@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'))
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('home');
 });
 
 app.use('/api', paymentRouter);
