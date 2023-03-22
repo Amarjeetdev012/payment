@@ -1,9 +1,6 @@
 <h1>click here to pay <%= data.amount %> here</h1>
 <br>
 <button id="rzp-button1">Pay</button>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
-    integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script> document.getElementById('rzp-button1').onclick = async function (e) {
         let result
@@ -17,6 +14,7 @@
                 console.log(response.razorpay_payment_id);
                 console.log(response.razorpay_order_id);
                 console.log(response.razorpay_signature)
+                rzp1.close();
             },
         };
         var rzp1 = new Razorpay(options);
