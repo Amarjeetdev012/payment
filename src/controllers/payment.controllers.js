@@ -39,6 +39,10 @@ export const verifyPayment = async (req, res) => {
     let data;
     const paymentRequest = req.body.payload.payment.entity;
     if (req.body.event === 'payment.captured') {
+      const findOrder = await Order.findOne({ id: paymentRequest.order_id });
+      if (findOrder && findOrder.amount_due === 0) {
+        return res.status(400).send('payment already done for this order id');
+      }
       data = paymentRequest.order_id + '|' + paymentRequest.id;
       expectedSignature = crypto
         .createHmac('sha256', key_secret)
@@ -78,41 +82,14 @@ export const verifyPayment = async (req, res) => {
         razorpay_order_id: razorpayOrderId,
         method: paymentRequest.method,
       };
-      const payment = await Payment.create(paymentData);
+      await Payment.create(paymentData);
       console.log('payment done');
-      return res
-        .status(200)
-        .send({ status: true, message: 'payment successfully' });
+      return res.render('home');
     } else {
-     return await History.create(paymentRequest);
+      await History.create(paymentRequest);
+      return res.render('home');
     }
   } catch (error) {
     return res.status(500).send(error);
   }
 };
-
-// export const failPayment = async (req, res) => {
-//   try {
-//     const paymentRequest = req.body.payload.payment.entity;
-//     if (req.body.event === 'payment.failed') {
-//     }
-//     const razorpayOrderId = paymentRequest.order_id;
-//     const razorpayPaymentId = paymentRequest.id;
-//     const paymentData = {
-//       razorpay_payment_id: razorpayPaymentId,
-//       entity: paymentRequest.entity,
-//       amount: paymentRequest.amount,
-//       currency: paymentRequest.currency,
-//       status: paymentRequest.status,
-//       razorpay_order_id: razorpayOrderId,
-//       method: paymentRequest.method,
-//     };
-//     const payment = await Payment.create(paymentData);
-//     console.log('payment', payment);
-//     console.log('payment failed');
-//     return res.status(400).send({ status: false, message: 'payment failed' });
-//   } catch (error) {
-//     return res.status(500).send(error);
-//   }
-// };
-
