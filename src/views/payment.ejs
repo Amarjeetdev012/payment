@@ -3,7 +3,6 @@
 <button id="rzp-button1">Pay</button>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script> document.getElementById('rzp-button1').onclick = async function (e) {
-        let result
         var options = {
             key: "rzp_test_dvLgwKDK60M5Xv",
             amount: `<%= data.amount %>`,
@@ -18,9 +17,6 @@
             },
         };
         var rzp1 = new Razorpay(options);
-        rzp1.on('payment.success', function (resp) {
-            console.log("Success!", "Your payment is success", "success");
-        })
         rzp1.on('payment.failed', function (response) {
             console.log('payment failed');
         });

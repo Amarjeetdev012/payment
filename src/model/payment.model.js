@@ -2,17 +2,23 @@ import mongoose from 'mongoose';
 
 const paymentSchema = new mongoose.Schema(
   {
-    order_id: {
+    razorpay_payment_id: {
+      type: String,
+    },
+    entity: {
+      type: String,
+    },
+    currency: {
+      type: String,
+    },
+    razorpay_order_id: {
       type: String,
       required: true,
     },
-    payment_id: {
+    method: {
       type: String,
     },
-    signature: {
-      type: String,
-    },
-    receipt: {
+    razorpay_signature: {
       type: String,
     },
     amount: {
@@ -25,4 +31,4 @@ const paymentSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Pay = mongoose.model('Pay', paymentSchema);
+export const Payment = mongoose.model('payment', paymentSchema);
