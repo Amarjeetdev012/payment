@@ -116,17 +116,3 @@ export const verifyPayment = async (req, res) => {
 //   }
 // };
 
-// export const webhookCallback = async (req, res) => {
-//   try {
-//     const paymentRequest = req.body.payload.payment.entity;
-//     console.log('payment', paymentRequest);
-//     console.log('webhook >>>>>>>>>>>>>>>>>>>>>>>>', paymentRequest);
-
-//     const historyData = await History.create(paymentRequest);
-//     if (paymentRequest.status === 'captured') {
-//     }
-//     return res.status(400).send({ status: false, message: 'payment failed' });
-//   } catch (error) {
-//     return res.status(500).send(error);
-//   }
-// };
