@@ -15,10 +15,10 @@ const router = express.Router();
 // get all payments
 router.get('/payments', allPayments);
 router.get('/order', (req, res) => {
-  res.redirect('http://localhost:3000/');
+  res.redirect('https://razorpay-ahec.onrender.com/');
 });
 router.get('/success', (req, res) => {
-  res.redirect('http://localhost:3000');
+  res.redirect('https://razorpay-ahec.onrender.com');
 });
 router.get('/order/:id', verifyOrder);
 // create order
