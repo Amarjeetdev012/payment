@@ -28,6 +28,12 @@
         <button type="submit">Generate Payment Link</button>
     </form>
 
+    <h3>Fill details to cancel a payment link</h3>
+    <form action="/api/cancellink" method="post">
+        <label for="paymentLinkId">paymentLinkId:</label>
+        <input type="text" id="paymentLinkId" name="paymentLinkId" required>
+        <button type="submit">Cancel Payment Link</button>
+    </form>
 </body>
 
 </html>

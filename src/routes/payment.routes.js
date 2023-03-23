@@ -1,5 +1,5 @@
 import express from 'express';
-import { createLink } from '../controllers/linkController.js';
+import { cancelLink, createLink } from '../controllers/linkController.js';
 import {
   allPayments,
   order,
@@ -19,8 +19,9 @@ router.post('/payment', updatePayment);
 // verify payment using order id and payment id
 router.post('/verify', verifyPayment);
 
-// handle link 
-// create link
-router.post('/link', createLink)
+// handle link
+// create standard link
+router.post('/link', createLink);
+router.post('/cancellink', cancelLink);
 
 export default router;

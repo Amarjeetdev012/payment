@@ -23,6 +23,9 @@ app.get('/link', (req, res) => {
   res.render('link');
 });
 
+app.get('/success', (req, res) => {
+  res.render('success');
+});
 
 app.use('/api', paymentRouter);
 

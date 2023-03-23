@@ -35,6 +35,7 @@ export const order = async (req, res) => {
 
 export const updatePayment = async (req, res) => {
   try {
+    console.log('req', req.body);
     let expectedSignature;
     let data;
     const paymentRequest = req.body.payload.payment.entity;

@@ -8,6 +8,8 @@ export const createLink = async (req, res) => {
       amount: amount * 100, // Razorpay amount is in paisa, so multiply by 100
       currency,
       notes,
+      callback_url: 'http://localhost:3000/success',
+      callback_method: 'get',
     };
     const paymentLink = await instance.paymentLink.create(options);
     const paymentLinkData = {
@@ -21,7 +23,7 @@ export const createLink = async (req, res) => {
       status: paymentLink.status,
     };
     await Link.create(paymentLinkData);
-    res.send(201).send({
+    res.status(201).json({
       status: true,
       message: 'link generated',
       data: paymentLink.short_url,
@@ -30,4 +32,16 @@ export const createLink = async (req, res) => {
   } catch (error) {
     res.status(500).send(error);
   }
+};
+
+export const cancelLink = async (req, res) => {
+  const { paymentLinkId } = req.body;
+  instance.paymentLink.cancel(paymentLinkId, (err, data) => {
+    if (err) {
+      console.log('err', err);
+      return res.status(400).send(err);
+    } else {
+      console.log('data', data);
+    }
+  });
 };
