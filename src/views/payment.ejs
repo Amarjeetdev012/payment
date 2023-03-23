@@ -1,4 +1,7 @@
 <h1>click here to pay <%= data.amount/100 %> here</h1>
+<h2>your order id is: <%= data.id %>
+</h2>
+
 <br>
 <button id="rzp-button1">Pay</button>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -9,12 +12,8 @@
             currency: `<%= data.currency %>`,
             name: 'old monk shop',
             order_id: `<%= data.id %>`,
-            handler: function (response) {
-                console.log(response.razorpay_payment_id);
-                console.log(response.razorpay_order_id);
-                console.log(response.razorpay_signature)
-                rzp1.close();
-            },
+            // callback_url: "https://razorpay-ahec.onrender.com",
+            callback_url: "http://localhost:3000/api/success",
         };
         var rzp1 = new Razorpay(options);
         rzp1.on('payment.failed', function (response) {

@@ -37,10 +37,8 @@ export const cancelLink = async (req, res) => {
   const { paymentLinkId } = req.body;
   instance.paymentLink.cancel(paymentLinkId, (err, data) => {
     if (err) {
-      console.log('err', err);
       return res.status(400).send(err);
     } else {
-      console.log('data', data);
     }
   });
 };

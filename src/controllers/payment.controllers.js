@@ -10,6 +10,12 @@ import { validatePaymentVerification } from '../utils/razorpay.utils.js';
 export const order = async (req, res) => {
   try {
     const { amount } = req.body;
+    if (amount <= -1 || amount == '0') {
+      return res.status(400).json({
+        status: false,
+        message: 'Minimum transaction amount allowed is Re 1',
+      });
+    }
     const options = {
       amount: amount * 100,
       receipt: 'receipt_' + Date.now(),
@@ -26,12 +32,23 @@ export const order = async (req, res) => {
       status: order.status,
     };
     await Order.create(orderData);
-    res.render('payment', {
-      data: order,
-    });
+    res.redirect(`http://localhost:3000/api/order/${order.id}`);
   } catch (error) {
     return res.status(500).send(error);
   }
+};
+
+export const verifyOrder = async (req, res) => {
+  let id = req.params.id;
+  const order = await instance.orders.fetch(id);
+  if (order && order.status === 'paid') {
+    return res.redirect('http://localhost:3000');
+  }
+  const dbOrder = await Order.findOne({ id: id });
+  if (dbOrder && dbOrder.status === 'paid') {
+    return res.redirect('http://localhost:3000');
+  }
+  res.render('payment', { data: order });
 };
 
 export const updatePayment = async (req, res) => {
@@ -49,7 +66,6 @@ export const updatePayment = async (req, res) => {
         .createHmac('sha256', key_secret)
         .update(data.toString())
         .digest('hex');
-
       const razorpayOrderId = paymentRequest.order_id;
       const razorpayPaymentId = paymentRequest.id;
       const signature = expectedSignature;
@@ -103,7 +119,6 @@ export const updatePayment = async (req, res) => {
       return res.render('home');
     }
   } catch (error) {
-    console.log(error);
     return res.status(500).send(error);
   }
 };
@@ -118,7 +133,6 @@ export const verifyPayment = async (req, res) => {
     }
     res.status(200).send(`Payment successful of amount ${amount} ${currency}`);
   } catch (error) {
-    console.log(error);
     res.status(500).send(error);
   }
 };
@@ -128,14 +142,17 @@ export const allPayments = async (req, res) => {
     let payments;
     instance.payments.all({ count: 100 }, function (error, payment) {
       if (error) {
-        console.log(error);
+        return res.status(400).send(error);
       } else {
         payments = payment;
-        console.log(payments);
       }
       res.render('allPayment', { payments });
     });
   } catch (error) {
     res.status(500).send(error);
   }
+};
+
+export const successResponse = async (req, res) => {
+  res.redirect('http://localhost:3000');
 };
