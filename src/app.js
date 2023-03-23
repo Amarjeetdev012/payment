@@ -19,10 +19,15 @@ app.get('/', (req, res) => {
   res.render('home');
 });
 
+app.get('/link', (req, res) => {
+  res.render('link');
+});
+
+
+app.use('/api', paymentRouter);
+
 app.get('*', function (req, res) {
   res.json('404 page not found');
 });
-
-app.use('/api', paymentRouter);
 
 export default app;

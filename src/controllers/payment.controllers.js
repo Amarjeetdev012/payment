@@ -33,7 +33,7 @@ export const order = async (req, res) => {
   }
 };
 
-export const verifyPayment = async (req, res) => {
+export const updatePayment = async (req, res) => {
   try {
     let expectedSignature;
     let data;
@@ -91,5 +91,37 @@ export const verifyPayment = async (req, res) => {
     }
   } catch (error) {
     return res.status(500).send(error);
+  }
+};
+
+export const verifyPayment = async (req, res) => {
+  try {
+    const { payment_id, order_id } = req.body;
+    const payment = await instance.payments.fetch(payment_id);
+    const { amount, currency } = payment;
+    if (payment.order_id !== order_id || payment.status !== 'captured') {
+      return res.status(400).send('Invalid payment');
+    }
+    res.status(200).send(`Payment successful of amount ${amount} ${currency}`);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
+};
+
+export const allPayments = async (req, res) => {
+  try {
+    let payments;
+    instance.payments.all({ count: 100 }, function (error, payment) {
+      if (error) {
+        console.log(error);
+      } else {
+        payments = payment;
+        console.log(payments);
+      }
+      res.render('allPayment', { payments });
+    });
+  } catch (error) {
+    res.status(500).send(error);
   }
 };
