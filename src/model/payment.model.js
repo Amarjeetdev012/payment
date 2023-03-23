@@ -27,6 +27,9 @@ const paymentSchema = new mongoose.Schema(
     status: {
       type: String,
     },
+    description: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

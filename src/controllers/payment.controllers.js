@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import { key_secret } from '../config.js';
 import { instance } from '../middleware/razorpay.middleware.js';
 import { History } from '../model/history.model.js';
+import { Link } from '../model/link.model.js';
 import { Order } from '../model/order.model.js';
 import { Payment } from '../model/payment.model.js';
 import { validatePaymentVerification } from '../utils/razorpay.utils.js';
@@ -35,7 +36,6 @@ export const order = async (req, res) => {
 
 export const updatePayment = async (req, res) => {
   try {
-    console.log('req', req.body);
     let expectedSignature;
     let data;
     const paymentRequest = req.body.payload.payment.entity;
@@ -64,6 +64,17 @@ export const updatePayment = async (req, res) => {
           message: 'failed payment or unauthorized payment',
         });
       }
+      if (paymentRequest.description) {
+        const description = paymentRequest.description.slice(1);
+        const id = `plink_${description}`;
+        const link = await Link.findOne({ id: id });
+        if (link) {
+          await Link.findOneAndUpdate(
+            { id: id },
+            { status: 'paid', amount_paid: link.amount }
+          );
+        }
+      }
       await Order.findOneAndUpdate(
         { id: razorpayOrderId },
         {
@@ -82,6 +93,7 @@ export const updatePayment = async (req, res) => {
         status: paymentRequest.status,
         razorpay_order_id: razorpayOrderId,
         method: paymentRequest.method,
+        description: paymentRequest.description,
       };
       await Payment.create(paymentData);
       console.log('payment done');
@@ -91,6 +103,7 @@ export const updatePayment = async (req, res) => {
       return res.render('home');
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).send(error);
   }
 };

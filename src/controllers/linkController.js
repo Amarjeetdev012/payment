@@ -8,7 +8,7 @@ export const createLink = async (req, res) => {
       amount: amount * 100, // Razorpay amount is in paisa, so multiply by 100
       currency,
       notes,
-      callback_url: 'http://localhost:3000/success',
+      callback_url: 'https://razorpay-ahec.onrender.com/success',
       callback_method: 'get',
     };
     const paymentLink = await instance.paymentLink.create(options);
@@ -28,7 +28,6 @@ export const createLink = async (req, res) => {
       message: 'link generated',
       data: paymentLink.short_url,
     });
-    console.log('paymentLink', paymentLink);
   } catch (error) {
     res.status(500).send(error);
   }
