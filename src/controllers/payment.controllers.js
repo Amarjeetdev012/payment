@@ -139,22 +139,6 @@ export const verifyPayment = async (req, res) => {
   }
 };
 
-export const allPayments = async (req, res) => {
-  try {
-    let payments;
-    instance.payments.all({ count: 100 }, function (error, payment) {
-      if (error) {
-        return res.status(400).send(error);
-      } else {
-        payments = payment;
-      }
-      res.render('allPayment', { payments });
-    });
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
-
 export const successResponse = async (req, res) => {
   res.redirect('https://razorpay-ahec.onrender.com');
 };

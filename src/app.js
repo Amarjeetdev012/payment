@@ -2,7 +2,7 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import morgan from 'morgan';
 import { dirname, join } from 'path';
-import paymentRouter from './routes/payment.routes.js';
+import router from './routes/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,7 +27,7 @@ app.get('/success', (req, res) => {
   res.render('success');
 });
 
-app.use('/api', paymentRouter);
+app.use('/api', router);
 
 app.use((req, res, next) => {
   res.status(404).send('<h1>Page not found on the server</h1>');
