@@ -14,7 +14,6 @@ const router = express.Router();
 // handle payment and order
 // get all payments
 router.get('/payments', allPayments);
-
 router.get('/success', (req, res) => {
   res.redirect('https://razorpay-ahec.onrender.com');
 });
@@ -26,7 +25,6 @@ router.post('/payment', updatePayment);
 // verify payment using order id and payment id
 router.post('/verify', verifyPayment);
 router.post('/success', successResponse);
-
 // handle link
 // create standard link
 router.post('/link', createLink);
