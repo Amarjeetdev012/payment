@@ -14,9 +14,7 @@ const router = express.Router();
 // handle payment and order
 // get all payments
 router.get('/payments', allPayments);
-router.get('/order', (req, res) => {
-  res.redirect('https://razorpay-ahec.onrender.com/');
-});
+
 router.get('/success', (req, res) => {
   res.redirect('https://razorpay-ahec.onrender.com');
 });

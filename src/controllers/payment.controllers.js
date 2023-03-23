@@ -32,7 +32,9 @@ export const order = async (req, res) => {
       status: order.status,
     };
     await Order.create(orderData);
-    res.redirect(`https://razorpay-ahec.onrender.com/api/order/${order.id}`);
+    return res.redirect(
+      `https://razorpay-ahec.onrender.com/api/order/${order.id}`
+    );
   } catch (error) {
     return res.status(500).send(error);
   }
