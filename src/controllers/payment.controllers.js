@@ -142,3 +142,35 @@ export const verifyPayment = async (req, res) => {
 export const successResponse = async (req, res) => {
   res.redirect('https://razorpay-ahec.onrender.com');
 };
+
+export const orders = (req, res) => {
+  try {
+    let orders;
+    instance.orders.all({}, function (err, data) {
+      if (err) {
+        return res.status(400).send(err);
+      } else {
+        orders = data;
+      }
+      return res.render('orders', { orders });
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const payments = (req, res) => {
+  try {
+    let payments;
+    instance.payments.all({}, function (err, payment) {
+      if (err) {
+        return res.status(400).send(err);
+      } else {
+        payments = payment;
+      }
+      res.render('payments', { payments });
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};

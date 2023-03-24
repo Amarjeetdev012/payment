@@ -1,10 +1,9 @@
 import express from 'express';
-import { validAdmin } from '../auth/auth.js';
-import { orders, payments } from '../controllers/user.controller.js';
+import { createCustomer, createSubscription } from '../controllers/user.controller.js';
 
-const userRouter = express.Router();
+const userRoute = express.Router();
 
-userRouter.post('/orders', validAdmin, orders);
-userRouter.get('/payments',validAdmin, payments);
+userRoute.post('/customer', createCustomer);
+userRoute.post('/subscription', createSubscription);
 
-export default userRouter;
+export default userRoute

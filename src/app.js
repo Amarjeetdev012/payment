@@ -2,6 +2,7 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import morgan from 'morgan';
 import { dirname, join } from 'path';
+import cookieParser from 'cookie-parser';
 import router from './routes/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -14,6 +15,7 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.render('home');
@@ -21,6 +23,9 @@ app.get('/', (req, res) => {
 
 app.get('/link', (req, res) => {
   res.render('link');
+});
+app.get('/subscription', (req, res) => {
+  res.render('subscription');
 });
 
 app.get('/success', (req, res) => {

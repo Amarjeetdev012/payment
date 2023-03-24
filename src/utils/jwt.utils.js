@@ -1,14 +1,7 @@
 import jwt from 'jsonwebtoken';
 
-export const generateToken = async () => {
-  let token;
-  jwt.sign(payload, secret, (error, encoded) => {
-    if (err) {
-      return resizeBy.status(400).send({ status: false, message: err });
-    }
-    token = encoded;
-  });
-  return token;
+export const generateToken = async (payload, secret) => {
+  return await jwt.sign(payload, secret);
 };
 
 export const verifyToken = (token, secret) => {

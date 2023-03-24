@@ -1,33 +1,69 @@
 import { instance } from '../middleware/razorpay.middleware.js';
+import { Customer } from '../model/customer.model.js';
+import { Plan } from '../model/plan.model.js';
 
-export const orders = (req, res) => {
+export const createSubscription = async (req, res) => {
   try {
-    let orders;
-    instance.orders.all({}, function (err, data) {
-      if (err) {
-        return res.status(400).send(err);
-      } else {
-        orders = data;
-      }
-      return res.status(200).send({ status: false, message: 'orders', orders });
+    let data = req.body;
+    const {
+      period,
+      interval,
+      item: { name, amount, currency, description },
+    } = data;
+    console.log('data', data);
+    const plan = await instance.plans.create({
+      period,
+      interval,
+      item: {
+        name,
+        amount,
+        currency,
+        description,
+      },
     });
+    if (plan) {
+      Plan.create(plan);
+    }
+
+    const subscription = await instance.subscriptions.create({
+      plan_id: plan.id,
+      customer_notify: 1,
+      quantity: 5,
+      total_count: plan.interval,
+    });
+    console.log('subscription', subscription);
+    const subscriptionData = {
+      subscriptionId: subscription.id,
+      subscriptionAmount: subscription.plan.amount,
+      subscriptionCurrency: subscription.plan.currency,
+    };
+    return res
+      .status(200)
+      .send({ status: true, message: 'Subscription created' });
   } catch (error) {
-    res.status(500).send(error);
+    return res.status(500).send({ status: false, message: error });
   }
 };
 
-export const payments = async (req, res) => {
+export const createCustomer = async (req, res) => {
   try {
-    let payments;
-    instance.payments.all({ count: 100 }, function (error, payment) {
-      if (error) {
-        return res.status(400).send(error);
-      } else {
-        payments = payment;
-      }
-      res.render('allPayment', { payments });
-    });
+    let data = req.body;
+    const { name, email, contact } = data;
+    const customer = await instance.customers.create({ name, email, contact });
+    const saveData = {
+      id: customer.id,
+      entity: customer.entity,
+      name: customer.name,
+      email: customer.email,
+      contact: customer.contact,
+    };
+    await Customer.create(saveData);
+    res
+      .status(201)
+      .send({ status: true, message: 'customer created successfully', data });
   } catch (error) {
-    res.status(500).send(error);
+    return res
+      .status(Number(`${error.statusCode}`))
+      .send({ status: false, message: error });
   }
 };
