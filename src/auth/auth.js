@@ -46,7 +46,7 @@ export const login = async (req, res) => {
       }
       // res.set('Authorization', `Bearer ${token}`);
       res.cookie('token', token, {
-        maxAge: 864000
+        maxAge: 864000,
       });
       return res
         .status(200)
