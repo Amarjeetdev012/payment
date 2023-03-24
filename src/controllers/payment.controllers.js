@@ -55,7 +55,6 @@ export const verifyOrder = async (req, res) => {
 
 export const updatePayment = async (req, res) => {
   try {
-    console.log('req', req.body.payload.payment.entity);
     let expectedSignature;
     let data;
     const paymentRequest = req.body.payload.payment.entity;
