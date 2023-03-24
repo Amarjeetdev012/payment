@@ -24,24 +24,22 @@ export const createSubscription = async (req, res) => {
     if (plan) {
       Plan.create(plan);
     }
-
     const subscription = await instance.subscriptions.create({
       plan_id: plan.id,
       customer_notify: 1,
       quantity: 5,
       total_count: plan.interval,
     });
-    console.log('subscription', subscription);
-    const subscriptionData = {
-      subscriptionId: subscription.id,
-      subscriptionAmount: subscription.plan.amount,
-      subscriptionCurrency: subscription.plan.currency,
-    };
-    return res
-      .status(200)
-      .send({ status: true, message: 'Subscription created' });
+
+    return res.status(200).send({
+      status: true,
+      message: 'Subscription created',
+      subscriptionData,
+    });
   } catch (error) {
-    return res.status(500).send({ status: false, message: error });
+    return res
+      .status(500)
+      .send({ status: false, message: error, url: subscription.short_url });
   }
 };
 
