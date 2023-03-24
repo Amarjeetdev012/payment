@@ -66,9 +66,7 @@ const historySchema = new mongoose.Schema(
       type: String,
     },
     acquirer_data: {
-      rrn: {
-        type: String,
-      },
+     type:String
     },
     order_id: {
       type: String,
