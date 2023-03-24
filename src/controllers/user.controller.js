@@ -8,6 +8,7 @@ export const createSubscription = async (req, res) => {
     const {
       period,
       interval,
+      customer_id,
       total_count,
       quantity,
       item: { name, amount, currency, description },
@@ -17,7 +18,7 @@ export const createSubscription = async (req, res) => {
       interval,
       item: {
         name,
-        amount:amount*100,
+        amount: amount * 100,
         currency,
         description,
       },
@@ -28,6 +29,7 @@ export const createSubscription = async (req, res) => {
     const subscription = await instance.subscriptions.create({
       plan_id: plan.id,
       customer_notify: 1,
+      customer_id: customer_id,
       quantity: quantity,
       total_count: total_count,
     });
