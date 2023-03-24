@@ -28,7 +28,6 @@ export const createSubscription = async (req, res) => {
       plan_id: plan.id,
       customer_notify: 1,
       quantity: quantity,
-      start_at: 1495995837,
       total_count: plan.interval,
     });
     return res.redirect(`${subscription.short_url}`);
