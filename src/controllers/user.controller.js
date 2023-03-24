@@ -8,6 +8,7 @@ export const createSubscription = async (req, res) => {
     const {
       period,
       interval,
+      total_count,
       quantity,
       item: { name, amount, currency, description },
     } = data;
@@ -28,7 +29,7 @@ export const createSubscription = async (req, res) => {
       plan_id: plan.id,
       customer_notify: 1,
       quantity: quantity,
-      total_count: plan.interval,
+      total_count: total_count,
     });
     return res.redirect(`${subscription.short_url}`);
   } catch (error) {
