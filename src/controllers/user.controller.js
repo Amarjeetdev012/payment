@@ -8,9 +8,9 @@ export const createSubscription = async (req, res) => {
     const {
       period,
       interval,
+      quantity,
       item: { name, amount, currency, description },
     } = data;
-    console.log('data', data);
     const plan = await instance.plans.create({
       period,
       interval,
@@ -27,19 +27,13 @@ export const createSubscription = async (req, res) => {
     const subscription = await instance.subscriptions.create({
       plan_id: plan.id,
       customer_notify: 1,
-      quantity: 5,
+      quantity: quantity,
+      start_at: 1495995837,
       total_count: plan.interval,
     });
-
-    return res.status(200).send({
-      status: true,
-      message: 'Subscription created',
-      subscriptionData,
-    });
+    return res.redirect(`${subscription.short_url}`);
   } catch (error) {
-    return res
-      .status(500)
-      .send({ status: false, message: error, url: subscription.short_url });
+    return res.status(500).send({ status: false, message: error });
   }
 };
 
