@@ -1,12 +1,14 @@
-import { verifyToken } from '../utils/jwt.utils.js';
-import { User } from '../model/user.model.js';
+import bcrypt from 'bcrypt';
 import { jwt_secret } from '../config.js';
+import { User } from '../model/user.model.js';
+import { verifyToken } from '../utils/jwt.utils.js';
 
 export const register = async (req, res) => {
   try {
     let data = req.body;
     const { fname, lname, email, password } = data;
     const user = await User.findOne({ email: email });
+
     if (user) {
       return res
         .status(400)
@@ -15,9 +17,10 @@ export const register = async (req, res) => {
     const hashPassword = bcrypt.hashSync(password, 10);
     data.password = hashPassword;
     await User.create(data);
+    data.password = undefined;
     return res
       .status(201)
-      .send({ status: true, message: 'user created', user });
+      .send({ status: true, message: 'user created', data });
   } catch (error) {
     return res.status(500).send(error);
   }
@@ -40,6 +43,7 @@ export const login = async (req, res) => {
       }
       token = generateToken({ id: user._id, email: email }, jwt_secret);
     });
+    res.set('Authorization', `Bearer ${token}`);
     return res
       .status(200)
       .send({ status: true, message: 'user login successfully', token });
