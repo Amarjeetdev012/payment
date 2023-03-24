@@ -17,6 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(cookieParser());
 
+app.post('/', (req, res) => {
+  res.redirect('https://razorpay-ahec.onrender.com');
+});
 app.get('/', (req, res) => {
   res.render('home');
 });
