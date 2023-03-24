@@ -15,8 +15,8 @@ const paymentRouter = express.Router();
 
 // handle payment and order
 paymentRouter.get('/order/:id', verifyOrder);
-paymentRouter.get('/payments', validAdmin, payments);
-paymentRouter.get('/orders', validAdmin, orders);
+paymentRouter.get('/payments', payments);
+paymentRouter.get('/orders', orders);
 paymentRouter.get('/success', successResponse);
 
 paymentRouter.post('/order', order);
