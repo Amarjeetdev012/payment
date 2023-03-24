@@ -17,7 +17,7 @@ export const createSubscription = async (req, res) => {
       interval,
       item: {
         name,
-        amount,
+        amount:amount*100,
         currency,
         description,
       },
