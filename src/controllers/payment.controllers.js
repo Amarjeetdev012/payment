@@ -33,7 +33,7 @@ export const order = async (req, res) => {
     };
     await Order.create(orderData);
     return res.redirect(
-      `https://razorpay-ahec.onrender.com/api/order/${order.id}`
+      `https://razorpay-ahec.onrender.com/api/payment/order/${order.id}`
     );
   } catch (error) {
     return res.status(500).send(error);
@@ -55,6 +55,7 @@ export const verifyOrder = async (req, res) => {
 
 export const updatePayment = async (req, res) => {
   try {
+    console.log('req', req.body.payload.payment.entity);
     let expectedSignature;
     let data;
     const paymentRequest = req.body.payload.payment.entity;
@@ -110,7 +111,9 @@ export const updatePayment = async (req, res) => {
         currency: paymentRequest.currency,
         status: paymentRequest.status,
         razorpay_order_id: razorpayOrderId,
+        invoice_id: paymentRequest.invoice_id,
         method: paymentRequest.method,
+        acquirer_data: paymentRequest.acquirer_data,
         description: paymentRequest.description,
       };
       await Payment.create(paymentData);

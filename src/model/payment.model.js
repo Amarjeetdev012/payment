@@ -15,6 +15,9 @@ const paymentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    invoice_id: {
+      type: String,
+    },
     method: {
       type: String,
     },
@@ -29,6 +32,11 @@ const paymentSchema = new mongoose.Schema(
     },
     description: {
       type: String,
+    },
+    acquirer_data: {
+      rrn: {
+        type: String,
+      },
     },
   },
   { timestamps: true }
