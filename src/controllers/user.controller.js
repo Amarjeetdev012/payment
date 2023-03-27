@@ -1,6 +1,7 @@
 import { instance } from '../middleware/razorpay.middleware.js';
 import { Customer } from '../model/customer.model.js';
 import { Plan } from '../model/plan.model.js';
+import { QrCode } from '../model/qrCode.js';
 
 export const createSubscription = async (req, res) => {
   try {
@@ -60,5 +61,30 @@ export const createCustomer = async (req, res) => {
     return res
       .status(Number(`${error.statusCode}`))
       .send({ status: false, message: error });
+  }
+};
+
+export const createQr = async (req, res) => {
+  try {
+    const data = req.body;
+    const { type, name, customerId } = data;
+    const qrCode = await instance.qrCode.create({
+      type: type,
+      name: name,
+      usage: 'multiple_use',
+      fixed_amount: false,
+      description: 'amarjeet upi for payments',
+      customer_id: customerId,
+      notes: {
+        purpose: 'Test UPI QR Code notes',
+      },
+    });
+    console.log('qrcode', qrCode);
+    const result = await QrCode.create(qrCode);
+    console.log('result', result);
+    return res.status(200).send(result.image_url);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error);
   }
 };
