@@ -112,11 +112,20 @@ const paymentSchema = new mongoose.Schema(
         rrn: {
           type: String,
         },
+        arn: {
+          type: String,
+        },
+
+        auth_code: {
+          type: String,
+        },
 
         authentication_reference_number: {
           type: String,
         },
-
+        upi_transaction_id: {
+          type: String,
+        },
         bank_transaction_id: {
           type: String,
         },
