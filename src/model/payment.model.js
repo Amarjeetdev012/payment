@@ -107,19 +107,21 @@ const paymentSchema = new mongoose.Schema(
       type: String,
     },
 
-    acquirer_data: {
-      rrn: {
-        type: String,
-      },
+    acquirer_data: [
+      {
+        rrn: {
+          type: String,
+        },
 
-      authentication_reference_number: {
-        type: String,
-      },
+        authentication_reference_number: {
+          type: String,
+        },
 
-      bank_transaction_id: {
-        type: String,
+        bank_transaction_id: {
+          type: String,
+        },
       },
-    },
+    ],
   },
   { timestamps: true }
 );
