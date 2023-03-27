@@ -27,7 +27,7 @@ export const order = async (req, res) => {
     };
     await Order.create(orderData);
     return res.redirect(
-      `https://razorpay-ahec.onrender.com/api/payment/order/${order.id}`
+      `https://razorpay-ahec.onrender.com/api/order/${order.id}`
     );
   } catch (error) {
     return res.status(500).send(error);
