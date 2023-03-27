@@ -14,6 +14,9 @@
 
     <label for="total_count">total_count for subscription:</label>
     <input type="text" name="total_count" id="total_count"><br><br>
+    <label for="startDate">Start Date:</label>
+    <input type="date" name="startDate">
+    <br><br>
 
     <label for="name">Item Name:</label>
     <input type="text" name="item[name]" id="name"><br><br>
@@ -28,5 +31,22 @@
     <label for="description">Item Description:</label>
     <input type="text" name="item[description]" id="description"><br><br>
 
+    <input type="submit" value="Submit">
+</form>
+
+
+<h3>fill this form to create a Customer</h3>
+<form method="post" action="/api/user/customer">
+    <label for="name">name</label>
+    <input type="text" name="name" id="name"><br><br>
+
+    <label for="contact">contact:</label>
+    <input type="text" name="contact" id="contact"><br><br>
+
+    <label for="email">email:</label>
+    <input type="text" name="email" id="email"><br><br>
+
+    <label for="gstin">gstin:</label>
+    <input type="text" name="gstin" id="gstin"><br><br>
     <input type="submit" value="Submit">
 </form>

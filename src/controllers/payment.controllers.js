@@ -58,6 +58,7 @@ export const updatePayment = async (req, res) => {
     let expectedSignature;
     let data;
     const paymentRequest = req.body.payload.payment.entity;
+    console.log('paymentRequest', paymentRequest);
     if (req.body.event === 'payment.captured') {
       const findOrder = await Order.findOne({ id: paymentRequest.order_id });
       if (findOrder && findOrder.amount_due === 0) {

@@ -65,9 +65,22 @@ const historySchema = new mongoose.Schema(
     error_reason: {
       type: String,
     },
-    acquirer_data: {
-     type:String
-    },
+  
+    acquirer_data: [
+      {
+        rrn: {
+          type: String,
+        },
+
+        authentication_reference_number: {
+          type: String,
+        },
+
+        bank_transaction_id: {
+          type: String,
+        },
+      },
+    ],
     order_id: {
       type: String,
     },
