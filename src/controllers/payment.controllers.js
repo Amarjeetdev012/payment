@@ -183,6 +183,7 @@ export const qrCodePaymentsId = async (req, res) => {
   }
 };
 
+// Fetch Payments for a customer id
 export const qrCodeCustomerId = async (req, res) => {
   try {
     const customer_id = req.query.customer_id;
@@ -195,6 +196,20 @@ export const qrCodeCustomerId = async (req, res) => {
         .status(200)
         .send({ status: false, message: 'customer data', data });
     });
+  } catch (error) {
+    return res.status(500).json({ status: false, message: error });
+  }
+};
+
+// Fetch Payments for a QR Code
+
+export const qrId = async (req, res) => {
+  try {
+    const qr_id = req.params.qr_id;
+    const qrPayments = await instance.qrCode.fetchAllPayments(qr_id);
+    return res
+      .status(200)
+      .json({ status: true, message: 'all qr code data', qrPayments });
   } catch (error) {
     return res.status(500).json({ status: false, message: error });
   }

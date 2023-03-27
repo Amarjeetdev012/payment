@@ -8,6 +8,7 @@ import {
   payments,
   qrCodeCustomerId,
   qrCodePaymentsId,
+  qrId,
   successResponse,
   updatePayment,
   verifyPayment,
@@ -27,6 +28,7 @@ paymentRouter.post('/success', successResponse);
 // qr code
 paymentRouter.get('/qr_codes', qrCodeCustomerId);
 paymentRouter.get('/qr_codes', allQr);
+paymentRouter.get('/qr_codes/:qr_id/payments', qrId);
 paymentRouter.get('/qr_codes/:qr_id', qrCodePaymentsId);
 paymentRouter.post('/qr_codes/:qr_id/close', closeQr);
 paymentRouter.post('/qr_codes', createQr);
