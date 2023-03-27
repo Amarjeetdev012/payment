@@ -8,7 +8,6 @@ export const createSubscription = async (req, res) => {
     const {
       period,
       interval,
-      startDate,
       customer_id,
       total_count,
       quantity,
@@ -27,14 +26,11 @@ export const createSubscription = async (req, res) => {
     if (plan) {
       Plan.create(plan);
     }
-    const result = new Date(startDate);
-    const startDateUnix = Math.round(result.getTime() / 1000);
     const subscription = await instance.subscriptions.create({
       plan_id: plan.id,
       customer_notify: 1,
       customer_id: customer_id,
       quantity: quantity,
-      start_at: startDateUnix,
       total_count: total_count,
     });
     console.log('subscription', subscription);
