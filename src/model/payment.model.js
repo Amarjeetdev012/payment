@@ -33,8 +33,90 @@ const paymentSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    international: {
+      type: Boolean,
+    },
+    refund_status: {
+      type: String,
+    },
+    amount_refunded: {
+      type: String,
+    },
+    captured: {
+      type: String,
+    },
+    email: {
+      type: String,
+    },
+    contact: {
+      type: String,
+    },
+    fee: {
+      type: Number,
+    },
+
+    tax: {
+      type: Number,
+    },
+
+    error_code: {
+      type: String,
+    },
+
+    error_description: {
+      type: String,
+    },
+
+    error_source: {
+      type: String,
+    },
+
+    error_step: {
+      type: String,
+    },
+
+    error_reason: {
+      type: String,
+    },
+
+    notes: {
+      type: String,
+    },
+
+    created_at: {
+      type: String,
+    },
+
+    card_id: {
+      type: String,
+    },
+
+    card: {
+      type: String,
+    },
+
+    bank: {
+      type: String,
+    },
+
+    vpa: {
+      type: String,
+    },
+
+    wallet: {
+      type: String,
+    },
+
     acquirer_data: {
       rrn: {
+        type: String,
+      },
+
+      authentication_reference_number: {
+        type: String,
+      },
+
+      bank_transaction_id: {
         type: String,
       },
     },
