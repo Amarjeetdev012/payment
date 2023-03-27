@@ -97,7 +97,7 @@ export const verifyPayment = async (req, res) => {
 };
 
 export const successResponse = async (req, res) => {
-  res.redirect('https://razorpay-ahec.onrender.com');
+  res.redirect('http://localhost:3000');
 };
 
 // fetch all payments
@@ -134,7 +134,7 @@ export const createQr = async (req, res) => {
       },
     });
     const result = await QrCode.create(qrCode);
-    return res.status(200).send(result.image_url);
+    return res.redirect(result.image_url);
   } catch (error) {
     return res.status(500).send(error);
   }
@@ -170,11 +170,15 @@ export const allQr = async (req, res) => {
 
 // fetch payments for a qr code
 export const qrCodePaymentsId = async (req, res) => {
-  const id = req.params.id;
-  instance.qrCode.fetch(id, (err, data) => {
-    if (err) {
-      return res.status(400).send({ status: false, message: err });
-    }
-    return res.status(200).send({ status: true, message: 'qr code', data });
-  });
+  try {
+    const id = req.params.id;
+    instance.qrCode.fetch(id, (err, data) => {
+      if (err) {
+        return res.status(400).send({ status: false, message: err });
+      }
+      return res.status(200).send({ status: true, message: 'qr code', data });
+    });
+  } catch (error) {
+    return res.status(200).json({ status: true, message: 'all qr code', data });
+  }
 };

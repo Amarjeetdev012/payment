@@ -18,7 +18,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 app.post('/', (req, res) => {
-  res.redirect('https://razorpay-ahec.onrender.com');
+  res.redirect('http://localhost:3000');
 });
 app.get('/', (req, res) => {
   res.render('home');
@@ -29,6 +29,9 @@ app.get('/link', (req, res) => {
 });
 app.get('/subscription', (req, res) => {
   res.render('subscription');
+});
+app.get('/qrcode', (req, res) => {
+  res.render('qrcode');
 });
 
 app.get('/success', (req, res) => {
