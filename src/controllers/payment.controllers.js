@@ -6,52 +6,7 @@ import { Link } from '../model/link.model.js';
 import { Order } from '../model/order.model.js';
 import { Payment } from '../model/payment.model.js';
 import { validatePaymentVerification } from '../utils/razorpay.utils.js';
-
-export const order = async (req, res) => {
-  try {
-    const { amount } = req.body;
-    if (amount <= -1 || amount == '0') {
-      return res.status(400).json({
-        status: false,
-        message: 'Minimum transaction amount allowed is Re 1',
-      });
-    }
-    const options = {
-      amount: amount * 100,
-      receipt: 'receipt_' + Date.now(),
-    };
-    const order = await instance.orders.create(options);
-    const orderData = {
-      id: order.id,
-      entity: order.entity,
-      amount: order.amount,
-      amount_paid: order.amount_paid,
-      amount_due: order.amount_due,
-      currency: order.currency,
-      receipt: order.receipt,
-      status: order.status,
-    };
-    await Order.create(orderData);
-    return res.redirect(
-      `https://razorpay-ahec.onrender.com/api/payment/order/${order.id}`
-    );
-  } catch (error) {
-    return res.status(500).send(error);
-  }
-};
-
-export const verifyOrder = async (req, res) => {
-  let id = req.params.id;
-  const order = await instance.orders.fetch(id);
-  if (order && order.status === 'paid') {
-    return res.redirect('https://razorpay-ahec.onrender.com');
-  }
-  const dbOrder = await Order.findOne({ id: id });
-  if (dbOrder && dbOrder.status === 'paid') {
-    return res.redirect('https://razorpay-ahec.onrender.com');
-  }
-  res.render('payment', { data: order });
-};
+import { QrCode } from '../model/qrCode.js';
 
 export const updatePayment = async (req, res) => {
   try {
@@ -145,22 +100,7 @@ export const successResponse = async (req, res) => {
   res.redirect('https://razorpay-ahec.onrender.com');
 };
 
-export const orders = (req, res) => {
-  try {
-    let orders;
-    instance.orders.all({}, function (err, data) {
-      if (err) {
-        return res.status(400).send(err);
-      } else {
-        orders = data;
-      }
-      return res.render('orders', { orders });
-    });
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
-
+// fetch all payments
 export const payments = (req, res) => {
   try {
     let payments;
@@ -175,4 +115,66 @@ export const payments = (req, res) => {
   } catch (error) {
     res.status(500).send(error);
   }
+};
+
+// create qr code
+export const createQr = async (req, res) => {
+  try {
+    const data = req.body;
+    const { type, name, customerId } = data;
+    const qrCode = await instance.qrCode.create({
+      type: type,
+      name: name,
+      usage: 'multiple_use',
+      fixed_amount: false,
+      description: 'amarjeet upi for payments',
+      customer_id: customerId,
+      notes: {
+        purpose: 'Test UPI QR Code notes',
+      },
+    });
+    const result = await QrCode.create(qrCode);
+    return res.status(200).send(result.image_url);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+
+// close qr code by id
+export const closeQr = async (req, res) => {
+  try {
+    let id = req.params.id;
+    const qrcode = await instance.qrCode.close(id);
+    if (qrcode.status === 'closed') {
+      await QrCode.findOneAndUpdate(
+        { id: id },
+        { status: 'closed' },
+        { new: true }
+      );
+    }
+    return res.status(200).json({ status: true, message: 'qrcode closed' });
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+
+// fetch all qr codes
+export const allQr = async (req, res) => {
+  instance.qrCode.all({}, (err, data) => {
+    if (err) {
+      return res.status(400).send({ status: false, message: err });
+    }
+    return res.status(200).json({ status: true, message: 'all qr code', data });
+  });
+};
+
+// fetch payments for a qr code
+export const qrCodePaymentsId = async (req, res) => {
+  const id = req.params.id;
+  instance.qrCode.fetch(id, (err, data) => {
+    if (err) {
+      return res.status(400).send({ status: false, message: err });
+    }
+    return res.status(200).send({ status: true, message: 'qr code', data });
+  });
 };

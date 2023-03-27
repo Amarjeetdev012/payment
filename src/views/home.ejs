@@ -7,7 +7,7 @@
 
 <body>
     <h3>Enter amount and click pay now</h3>
-    <form action="/api/payment/order" method="POST">
+    <form action="/api/order/order" method="POST">
         <label for="amount"> Enter amount:</label>
         <input type="number" id="amount" name="amount" required><br>
         <button type="submit">Pay Now</button>
@@ -54,7 +54,7 @@
     <br><br>
 
     <h3>Click here to get all orders</h3>
-    <form action="/api/payment/orders" method="get">
+    <form action="/api/order/orders" method="get">
         <button type="submit">All Orders</button>
     </form>
     <br><br>

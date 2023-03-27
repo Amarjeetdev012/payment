@@ -1,28 +1,33 @@
 import express from 'express';
-import { validAdmin } from '../auth/auth.js';
+// import { validAdmin } from '../auth/auth.js';
 import { cancelLink, createLink } from '../controllers/linkController.js';
 import {
-  order,
-  orders,
+  allQr,
+  closeQr,
+  createQr,
   payments,
+  qrCodePaymentsId,
   successResponse,
   updatePayment,
-  verifyOrder,
   verifyPayment,
 } from '../controllers/payment.controllers.js';
 
 const paymentRouter = express.Router();
 
 // handle payment and order
-paymentRouter.get('/order/:id', verifyOrder);
 paymentRouter.get('/payments', payments);
-paymentRouter.get('/orders', orders);
+
 paymentRouter.get('/success', successResponse);
 
-paymentRouter.post('/order', order);
 paymentRouter.post('/payment', updatePayment);
 paymentRouter.post('/verify', verifyPayment);
 paymentRouter.post('/success', successResponse);
+
+// qr code
+paymentRouter.get('/qr_codes', allQr);
+paymentRouter.get('/qr_codes/:qr_id', qrCodePaymentsId);
+paymentRouter.post('/qr_codes/:qr_id/close', closeQr);
+paymentRouter.post('/qr_codes', createQr);
 
 // handle link
 paymentRouter.post('/link', createLink);
