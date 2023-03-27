@@ -121,13 +121,13 @@ export const payments = (req, res) => {
 export const createQr = async (req, res) => {
   try {
     const data = req.body;
-    const { type, name, customerId } = data;
+    const { name, customerId, description } = data;
     const qrCode = await instance.qrCode.create({
-      type: type,
+      type: 'upi_qr',
       name: name,
       usage: 'multiple_use',
       fixed_amount: false,
-      description: 'amarjeet upi for payments',
+      description: description,
       customer_id: customerId,
       notes: {
         purpose: 'Test UPI QR Code notes',
@@ -164,7 +164,7 @@ export const allQr = async (req, res) => {
     if (err) {
       return res.status(400).send({ status: false, message: err });
     }
-    return res.status(200).json({ status: true, message: 'all qr code', data });
+    res.render('qrcodes', { qrcodes: data });
   });
 };
 
@@ -180,5 +180,22 @@ export const qrCodePaymentsId = async (req, res) => {
     });
   } catch (error) {
     return res.status(200).json({ status: true, message: 'all qr code', data });
+  }
+};
+
+export const qrCodeCustomerId = async (req, res) => {
+  try {
+    const customer_id = req.query.customer_id;
+    instance.qrCode.all({ customer_id: customer_id }, (err, data) => {
+      if (err) {
+        return res.status(400).send({ status: false, message: err });
+      }
+      console.log('data', data);
+      return res
+        .status(200)
+        .send({ status: false, message: 'customer data', data });
+    });
+  } catch (error) {
+    return res.status(500).json({ status: false, message: error });
   }
 };

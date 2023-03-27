@@ -6,6 +6,7 @@ import {
   closeQr,
   createQr,
   payments,
+  qrCodeCustomerId,
   qrCodePaymentsId,
   successResponse,
   updatePayment,
@@ -24,6 +25,7 @@ paymentRouter.post('/verify', verifyPayment);
 paymentRouter.post('/success', successResponse);
 
 // qr code
+paymentRouter.get('/qr_codes', qrCodeCustomerId);
 paymentRouter.get('/qr_codes', allQr);
 paymentRouter.get('/qr_codes/:qr_id', qrCodePaymentsId);
 paymentRouter.post('/qr_codes/:qr_id/close', closeQr);
