@@ -41,7 +41,7 @@ app.get('/success', (req, res) => {
 app.use('/api', router);
 
 app.use((req, res, next) => {
-  res.status(404).send('<h1>Page not found on the server</h1>');
+  res.status(404).send('<h1>Page not found on the server Error 404</h1>');
 });
 
 export default app;
