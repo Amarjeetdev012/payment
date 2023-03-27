@@ -33,7 +33,6 @@ export const createSubscription = async (req, res) => {
       quantity: quantity,
       total_count: total_count,
     });
-    console.log('subscription', subscription);
     return res.redirect(`${subscription.short_url}`);
   } catch (error) {
     return res.status(500).send({ status: false, message: error });
