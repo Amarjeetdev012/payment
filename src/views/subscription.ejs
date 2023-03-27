@@ -1,29 +1,29 @@
 <h3>fill this form to create a subscription</h3>
 <form method="post" action="/api/user/subscription">
     <label for="period">Period:"daily" | "weekly" | "monthly" | "yearly" </label>
-    <input type="text" name="period" id="period"><br><br>
+    <input type="text" name="period" id="period" required><br><br>
 
     <label for="interval">Interval:</label>
-    <input type="text" name="interval" id="interval"><br><br>
+    <input type="text" name="interval" id="interval" required><br><br>
 
     <label for="quantity">quantity:</label>
-    <input type="text" name="quantity" id="quantity"><br><br>
+    <input type="text" name="quantity" id="quantity" required><br><br>
 
     <label for="total_count">total_count for subscription:</label>
-    <input type="text" name="total_count" id="total_count"><br><br>
+    <input type="text" name="total_count" id="total_count" required><br><br>
 
     <label for="name">Item Name:</label>
-    <input type="text" name="item[name]" id="name"><br><br>
+    <input type="text" name="item[name]" id="name" required><br><br>
 
     <label for="amount">Item Amount:</label>
-    <input type="text" name="item[amount]" id="amount"><br><br>
+    <input type="text" name="item[amount]" id="amount" required><br><br>
     <label for="currency">Item Currency:</label>
     <select name="item[currency]" id="currency">
         <option value="INR" selected>Indian Rupee (INR)</option>
     </select><br><br>
 
     <label for="description">Item Description:</label>
-    <input type="text" name="item[description]" id="description"><br><br>
+    <input type="text" name="item[description]" id="description" required><br><br>
 
     <input type="submit" value="Submit">
 </form>

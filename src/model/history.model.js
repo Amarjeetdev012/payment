@@ -65,7 +65,7 @@ const historySchema = new mongoose.Schema(
     error_reason: {
       type: String,
     },
-  
+
     acquirer_data: [
       {
         rrn: {
