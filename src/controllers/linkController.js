@@ -3,13 +3,22 @@ import { Link } from '../model/link.model.js';
 
 export const createLink = async (req, res) => {
   try {
-    const { amount, currency, notes } = req.body;
+    const { amount, currency, notes, name, email, contact } = req.body;
     const options = {
       amount: amount * 100, // Razorpay amount is in paisa, so multiply by 100
       currency,
       notes,
       callback_url: 'https://razorpay-ahec.onrender.com/success',
       callback_method: 'get',
+      customer: {
+        name: name,
+        email: email,
+        contact: contact,
+      },
+      notify: {
+        sms: true,
+        email: true,
+      },
     };
     const paymentLink = await instance.paymentLink.create(options);
     const paymentLinkData = {
@@ -40,5 +49,36 @@ export const cancelLink = async (req, res) => {
       return res.status(400).send(err);
     } else {
     }
+  });
+};
+
+export const allLinks = (req, res) => {
+  instance.paymentLink.all({}, (err, data) => {
+    if (err) {
+      return res.status(400).send({ status: false, message: err });
+    }
+    return res.status(200).send({ status: true, message: 'all links', data });
+  });
+};
+
+export const linkData = (req, res) => {
+  const id = req.params.id;
+  instance.paymentLink.fetch(id, (err, data) => {
+    if (err) {
+      return res.status(400).send({ status: false, message: err });
+    }
+    return res.status(200).send({ status: true, message: 'link data', data });
+  });
+};
+
+export const resendLink = (req, res) => {
+  const { id, medium } = req.params;
+  instance.paymentLink.fetch()
+  instance.paymentLink.notifyBy(id, medium, (err, data) => {
+    if (err) {
+      return res.send(400).send({ status: false, message: err });
+    }
+    console.log('data', data);
+    return res.status(200).send({ status: true, message: 'link resend', data });
   });
 };
