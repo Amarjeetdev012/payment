@@ -19,8 +19,8 @@ const linkSchema = new mongoose.Schema({
   cancelled_at: {
     type: Boolean,
   },
-  expired_at: {
-    type: Boolean,
+  expire_by: {
+    type: Number,
   },
   first_min_partial_amount: {
     type: Number,
