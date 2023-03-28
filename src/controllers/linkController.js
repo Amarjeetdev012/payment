@@ -97,7 +97,6 @@ export const updateLink = async (req, res) => {
         .status(400)
         .send({ status: false, message: 'cant update paid link' });
     }
-    console.log('link', link.status);
     instance.paymentLink.edit(
       id,
       {
@@ -108,7 +107,6 @@ export const updateLink = async (req, res) => {
         if (err) {
           return res.status(400).send({ status: false, message: err });
         }
-        console.log('data', data);
         return res
           .status(200)
           .send({ status: true, message: 'link updated', data });

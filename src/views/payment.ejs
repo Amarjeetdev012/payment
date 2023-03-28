@@ -16,9 +16,7 @@
             callback_url: "https://razorpay-ahec.onrender.com",
         };
         var rzp1 = new Razorpay(options);
-        rzp1.on('payment.failed', function (response) {
-            console.log('payment failed');
-        });
+       
         rzp1.open();
         e.preventDefault();
     }
