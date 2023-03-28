@@ -36,7 +36,6 @@ export const order = async (req, res) => {
 
 export const verifyOrder = async (req, res) => {
   let id = req.params.id;
-  console.log('req.params', req.params);
   const order = await instance.orders.fetch(id);
   if (order && order.status === 'paid') {
     return res.redirect('https://razorpay-ahec.onrender.com');
