@@ -84,3 +84,29 @@ export const SubscriptionById = async (req, res) => {
     return res.status(500).send({ status: false, message: error });
   }
 };
+
+export const verify = async (req, res) => {
+  try {
+    const subscription = req.body.payload.subscription.entity;
+    if (
+      subscription.status === 'completed' ||
+      subscription.status === 'active'
+    ) {
+      const dbData = await Subscriptions.findOneAndUpdate(
+        {
+          id: subscription.id,
+        },
+        {
+          paid_count: subscription.paid_count,
+          remaining_count: subscription.remaining_count,
+          status: subscription.status,
+        }
+      );
+    }
+    return res
+      .status(200)
+      .send({ status: true, message: 'subscription updated' });
+  } catch (error) {
+    return res.status(500).send({ status: false, message: error });
+  }
+};

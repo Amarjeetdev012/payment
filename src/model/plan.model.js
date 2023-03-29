@@ -1,33 +1,34 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const planSchema = new mongoose.Schema({
-    id:{
-        type:String
+  id: {
+    type: String,
+  },
+  entity: {
+    type: String,
+  },
+  interval: { type: Number },
+  period: {
+    type: String,
+  },
+  item: {
+    id: {
+      type: String,
     },
-    entity:{
-        type:String
+    active: {
+      type: Boolean,
     },
-    period:{
-        type:String
+    name: {
+      type: String,
     },
-    item:{
-        id:{
-            type:String,
-        },
-        active:{
-            type:Boolean
-        },
-        name:{
-            type:String
-        },
-        description:{
-            type:String
-        },
-        amount:{type:Number},
-        type:{
-            type:String
-        }
-    }
-})
+    description: {
+      type: String,
+    },
+    amount: { type: Number },
+    type: {
+      type: String,
+    },
+  },
+});
 
-export const Plan = mongoose.model('plan',planSchema)
+export const Plan = mongoose.model('plan', planSchema);

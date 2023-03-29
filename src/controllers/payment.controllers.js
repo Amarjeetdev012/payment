@@ -85,6 +85,7 @@ export const updatePayment = async (req, res) => {
 export const verifyPayment = async (req, res) => {
   try {
     const { payment_id, order_id } = req.body;
+    console.log('req', req);
     const payment = await instance.payments.fetch(payment_id);
     const { amount, currency } = payment;
     if (payment.order_id !== order_id || payment.status !== 'captured') {
