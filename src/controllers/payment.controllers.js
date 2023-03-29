@@ -144,7 +144,14 @@ export const createQr = async (req, res) => {
 // close qr code by id
 export const closeQr = async (req, res) => {
   try {
-    let id = req.params.id;
+    let id = req.body.qr_id;
+    const qr = await QrCode.findOne({ id: id });
+    console.log('qr', qr);
+    if (qr.status === 'closed') {
+      return res
+        .status(200)
+        .send({ status: false, message: 'this qr is already closed' });
+    }
     const qrcode = await instance.qrCode.close(id);
     if (qrcode.status === 'closed') {
       await QrCode.findOneAndUpdate(
@@ -169,10 +176,10 @@ export const allQr = async (req, res) => {
   });
 };
 
-// fetch payments for a qr code
-export const qrCodePaymentsId = async (req, res) => {
+// Fetches a qrode given QrCode ID
+export const qrcodeFetch = async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = req.query.qr_id;
     instance.qrCode.fetch(id, (err, data) => {
       if (err) {
         return res.status(400).send({ status: false, message: err });
@@ -184,7 +191,7 @@ export const qrCodePaymentsId = async (req, res) => {
   }
 };
 
-// Fetch Payments for a customer id
+// Get all qrcodes of customer
 export const qrCodeCustomerId = async (req, res) => {
   try {
     const customer_id = req.query.customer_id;
@@ -194,7 +201,7 @@ export const qrCodeCustomerId = async (req, res) => {
       }
       return res
         .status(200)
-        .send({ status: false, message: 'customer data', data });
+        .send({ status: true, message: 'customer qr codes', data });
     });
   } catch (error) {
     return res.status(500).json({ status: false, message: error });
@@ -205,7 +212,7 @@ export const qrCodeCustomerId = async (req, res) => {
 
 export const qrId = async (req, res) => {
   try {
-    const qr_id = req.params.qr_id;
+    const qr_id = req.query.qr_id;
     const qrPayments = await instance.qrCode.fetchAllPayments(qr_id);
     return res
       .status(200)
