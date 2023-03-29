@@ -14,7 +14,6 @@ subscriptionRouter.get('/:sub_id', SubscriptionById);
 
 subscriptionRouter.post('/', createSubscription);
 subscriptionRouter.post('/verify', verify);
-
 subscriptionRouter.post('/:sub_id/cancel', cancelSubscription);
 
 export default subscriptionRouter;

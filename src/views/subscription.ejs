@@ -29,6 +29,17 @@
     <input type="submit" value="Submit">
 </form>
 
+<h3>click here to get all subscriptions detail</h3>
+<form action="/api/subscribe/" method="get">
+    <button type="submit">All subscriptions</button>
+</form>
+
+<h3>fill subscription id to get details of subscription</h3>
+<form action="/api/subscribe/:sub_id" method="get">
+    <label for="id">subscription id</label>
+    <input type="text" name="id" id="id"><br><br>
+    <button type="submit">subscription details</button>
+</form>
 
 <h3>fill this form to create a Customer</h3>
 <form method="post" action="/api/customer/">

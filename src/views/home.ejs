@@ -6,6 +6,38 @@
 </head>
 
 <body>
+    <style>
+        .myNav {
+            display: block;
+            height: 50px;
+            line-height: 50px;
+            background-color: #384d31;
+        }
+
+        .myNav ul {
+            list-style: none;
+        }
+
+        .myNav li {
+            float: left;
+        }
+
+        .myNav li a {
+            display: inline-block;
+            text-align: center;
+            padding: 14px 16px;
+        }
+    </style>
+    <nav class="myNav">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="subscription">subscription</a></li>
+            <li><a href="qrcode">qrcode</a></li>
+        </ul>
+    </nav>
+
+
+    <br>
     <h3>Enter amount and click pay now</h3>
     <form action="/api/order/order" method="POST">
         <label for="amount"> Enter amount:</label>
@@ -13,6 +45,7 @@
         <button type="submit">Pay Now</button>
     </form>
     <br>
+
     <h3>Enter Payment id and Order id to verify payment</h3>
     <form action="/api/payment/verify" method="POST">
         <input type="text" name="payment_id" placeholder="Payment ID" required>
@@ -20,14 +53,7 @@
         <button type="submit">Verify Payment</button>
     </form>
     <br><br>
-
-    <h2>click on this below link to subscription</h2>
-    <a href="subscription">click here to generate subscription order</a>
-    <br><br>
-
-    <h3>click on this below link to qrcode</h3>
-    <a href="qrcode"> click here to generate qr code</a>
-
+    <br>
 
     <h3>fill form to register yourself</h3>
     <form action="/api/auth/register" method="POST">
@@ -63,7 +89,6 @@
         <button type="submit">All Orders</button>
     </form>
     <br><br>
-
 
 </body>
 

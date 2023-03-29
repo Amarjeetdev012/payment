@@ -56,29 +56,29 @@ export const cancelSubscription = async (req, res) => {
 
 export const allSubscriptions = async (req, res) => {
   try {
-    instance.subscriptions.all({}, (err, data) => {
+    instance.subscriptions.all({ count: 50 }, (err, data) => {
       if (err) {
         return res.status(400).send({ status: false, message: err });
       }
-      return res
-        .status(200)
-        .json({ status: true, message: 'all subscription', data });
+      console.log('data', data);
+      return res.render('subscriptions', { data: data });
     });
   } catch (error) {
     return res.status(500).send({ status: false, message: error });
   }
 };
 
+// Fetch a Subscription given Subcription ID
 export const SubscriptionById = async (req, res) => {
   try {
-    let sub_id = req.params.sub_id;
+    let sub_id = req.query.id;
     instance.subscriptions.fetch(sub_id, (err, data) => {
       if (err) {
         return res.status(400).send({ status: false, message: err });
       }
       return res
         .status(200)
-        .send({ status: false, message: 'subscription data', data });
+        .send({ status: true, message: 'subscription data', data });
     });
   } catch (error) {
     return res.status(500).send({ status: false, message: error });

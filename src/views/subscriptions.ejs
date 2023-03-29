@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Subscriptions</title>
+</head>
+
+<body>
+    <h1>Subscriptions</h1>
+    <% if (data.items.length) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>index</th>
+                    <th>ID</th>
+                    <th>Plan ID</th>
+                    <th>Status</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Charge Date</th>
+                    <th>Payment Method</th>
+                    <th>Total Count</th>
+                    <th>Paid Count</th>
+                    <th>Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.items.forEach(function(item,index) { %>
+                    <tr>
+                        <td>
+                            <%=index + 1 %>
+                        </td>
+                        <td>
+                            <%= item.id %>
+                        </td>
+                        <td>
+                            <%= item.plan_id %>
+                        </td>
+                        <td>
+                            <%= item.status %>
+                        </td>
+                        <td>
+                            <%= new Date(item.start_at * 1000).toLocaleDateString() %>
+                        </td>
+                        <td>
+                            <%= new Date(item.end_at * 1000).toLocaleDateString() %>
+                        </td>
+                        <td>
+                            <%= new Date(item.charge_at * 1000).toLocaleDateString() %>
+                        </td>
+                        <td>
+                            <%= item.payment_method %>
+                        </td>
+                        <td>
+                            <%= item.total_count %>
+                        </td>
+                        <td>
+                            <%= item.paid_count %>
+                        </td>
+                        <td>
+                            <a href="<%= item.short_url %>"><%= item.short_url %></a>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+        <% } else { %>
+            <p>No subscriptions found.</p>
+            <% } %>
+</body>
+
+</html>
