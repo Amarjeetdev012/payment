@@ -10,7 +10,31 @@ const subscriptionsSchema = new mongoose.Schema({
   plan_id: {
     type: String,
   },
+  customer_id: {
+    type: String,
+  },
+  total_count: {
+    type: String,
+  },
+  customer_notify: {
+    type: Boolean,
+  },
+  start_at: {
+    type: String,
+  },
+  quantity: {
+    type: String,
+  },
+  notes: {
+    type: String,
+  },
+  addons: {
+    type: String,
+  },
   status: {
+    type: String,
+  },
+  paid_count: {
     type: String,
   },
   current_start: {
@@ -22,16 +46,43 @@ const subscriptionsSchema = new mongoose.Schema({
   ended_at: {
     type: Number,
   },
-  quantity: {
+  charge_at: {
     type: Number,
   },
-  period: {
+  auth_attempts: {
+    type: Number,
+  },
+  expire_by: {
+    type: Number,
+  },
+  addons: [
+    {
+      item: {
+        name: {
+          type: String,
+        },
+        amount: {
+          type: Number,
+        },
+        currency: {
+          type: String,
+        },
+      },
+    },
+  ],
+  offer_id: {
     type: String,
   },
-  customer_notify: {
-    type: Boolean,
+  notes: {
+    type: Object,
   },
   short_url: {
+    type: String,
+  },
+  has_scheduled_changes: {
+    type: Boolean,
+  },
+  schedule_change_at: {
     type: String,
   },
   remaining_count: {
@@ -39,7 +90,7 @@ const subscriptionsSchema = new mongoose.Schema({
   },
 });
 
-export const subscriptions = mongoose.model(
+export const Subscriptions = mongoose.model(
   'subscriptions',
   subscriptionsSchema
 );

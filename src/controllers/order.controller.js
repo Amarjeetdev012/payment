@@ -26,9 +26,7 @@ export const order = async (req, res) => {
       status: order.status,
     };
     await Order.create(orderData);
-    return res.redirect(
-      `https://razorpay-ahec.onrender.com/api/order/${order.id}`
-    );
+    return res.redirect(`http://localhost:3000/api/order/${order.id}`);
   } catch (error) {
     return res.status(500).send(error);
   }
@@ -38,11 +36,11 @@ export const verifyOrder = async (req, res) => {
   let id = req.params.id;
   const order = await instance.orders.fetch(id);
   if (order && order.status === 'paid') {
-    return res.redirect('https://razorpay-ahec.onrender.com');
+    return res.redirect('http://localhost:3000');
   }
   const dbOrder = await Order.findOne({ id: id });
   if (dbOrder && dbOrder.status === 'paid') {
-    return res.redirect('https://razorpay-ahec.onrender.com');
+    return res.redirect('http://localhost:3000');
   }
   res.render('payment', { data: order });
 };

@@ -97,7 +97,7 @@ export const verifyPayment = async (req, res) => {
 };
 
 export const successResponse = async (req, res) => {
-  res.redirect('https://razorpay-ahec.onrender.com');
+  res.redirect('http://localhost:3000');
 };
 
 // fetch all payments

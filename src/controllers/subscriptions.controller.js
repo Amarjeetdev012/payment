@@ -1,5 +1,6 @@
 import { instance } from '../middleware/razorpay.middleware.js';
 import { Plan } from '../model/plan.model.js';
+import { Subscriptions } from '../model/subscriptions.model.js';
 
 export const createSubscription = async (req, res) => {
   try {
@@ -32,6 +33,9 @@ export const createSubscription = async (req, res) => {
       quantity: quantity,
       total_count: total_count,
     });
+    if (subscription) {
+      await Subscriptions.create(subscription);
+    }
     return res.redirect(`${subscription.short_url}`);
   } catch (error) {
     return res.status(500).send({ status: false, message: error });
