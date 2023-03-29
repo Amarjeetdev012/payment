@@ -9,7 +9,7 @@ export const createLink = async (req, res) => {
       amount: amount * 100, // Razorpay amount is in paisa, so multiply by 100
       currency,
       notes,
-      callback_url: 'http://localhost:3000/success',
+      callback_url: 'https://razorpay-ahec.onrender.com/success',
       callback_method: 'get',
       expire_by,
       customer: {

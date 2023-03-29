@@ -13,10 +13,10 @@
             currency: `<%= data.currency %>`,
             name: 'old monk shop',
             order_id: `<%= data.id %>`,
-            callback_url: "http://localhost:3000",
+            callback_url: "https://razorpay-ahec.onrender.com",
         };
         var rzp1 = new Razorpay(options);
-       
+
         rzp1.open();
         e.preventDefault();
     }
