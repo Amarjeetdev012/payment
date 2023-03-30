@@ -33,6 +33,7 @@ export const createSubscription = async (req, res) => {
       quantity: quantity,
       total_count: total_count,
     });
+    console.log('subscription', subscription);
     if (subscription) {
       await Subscriptions.create(subscription);
     }
@@ -105,6 +106,116 @@ export const verify = async (req, res) => {
     return res
       .status(200)
       .send({ status: true, message: 'subscription updated' });
+  } catch (error) {
+    return res.status(500).send({ status: false, message: error });
+  }
+};
+
+export const allPlans = (req, res) => {
+  try {
+    instance.plans.all({}, (err, data) => {
+      if (err) {
+        return res.status(400).send({ status: true, message: err });
+      }
+      return res.status(200).send({ status: true, message: 'all plans data' });
+    });
+  } catch (error) {
+    return res.status(500).send({ status: false, message: error });
+  }
+};
+
+export const plansById = (req, res) => {
+  try {
+    let id = req.params.id || req.query.id;
+    instance.plans.fetch(id, (err, data) => {
+      if (err) {
+        return res.status(400).send({ status: false, message: err });
+      }
+      return res
+        .status(200)
+        .send({ status: true, message: 'plan  details', data });
+    });
+  } catch (error) {
+    return res.status(500).send({ status: false, message: error });
+  }
+};
+
+export const updateSubscription = (req, res) => {
+  try {
+    let id = req.params.id || req.query.id;
+    instance.subscriptions.update(id, {}, (err, data) => {
+      if (err) {
+        return res.status(400).send({ status: false, message: err });
+      }
+      return res
+        .status(200)
+        .send({ status: true, message: 'subscription updated', data });
+    });
+  } catch (error) {
+    return res.status(500).send({ status: false, message: error });
+  }
+};
+
+export const pauseSubscription = (req, res) => {
+  try {
+    const id = req.params.id || req.query.id;
+    instance.subscriptions.pause(
+      id,
+      {
+        pause_at: 'now',
+      },
+      (err, data) => {
+        if (err) {
+          return res.status(400).send({ status: false, message: err });
+        }
+        return res
+          .status(200)
+          .send({ status: true, message: 'subscription paused', data });
+      }
+    );
+  } catch (error) {
+    return res.status(500).send({ status: false, message: error });
+  }
+};
+
+export const resumeSubscription = (req, res) => {
+  try {
+    const id = req.params.id || req.query.id;
+    instance.subscriptions.resume(
+      id,
+      {
+        resume_at: 'now',
+      },
+      (err, data) => {
+        if (err) {
+          return res.status(400).send({ status: false, message: err });
+        }
+        return res
+          .status(200)
+          .send({ status: true, message: 'subscription paused', data });
+      }
+    );
+  } catch (error) {
+    return res.status(500).send({ status: false, message: error });
+  }
+};
+
+export const subscriptionInvoices = (req, res) => {
+  try {
+    const id = req.params.id || req.query.id;
+    instance.invoices.all(
+      {
+        id,
+      },
+      (err, data) => {
+        if (err) {
+          return res.status(400).send({ status: true, message: err });
+        }
+        return res
+          .status(200)
+          .send({ status: false, message: 'subscription invoices', data });
+      }
+    );
   } catch (error) {
     return res.status(500).send({ status: false, message: error });
   }

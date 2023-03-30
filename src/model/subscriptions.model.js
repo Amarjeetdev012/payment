@@ -10,71 +10,50 @@ const subscriptionsSchema = new mongoose.Schema({
   plan_id: {
     type: String,
   },
-  customer_id: {
-    type: String,
-  },
-  total_count: {
-    type: String,
-  },
-  customer_notify: {
-    type: Boolean,
-  },
-  start_at: {
-    type: String,
-  },
-  quantity: {
-    type: String,
-  },
-  notes: {
-    type: String,
-  },
-  addons: {
-    type: String,
-  },
   status: {
     type: String,
   },
-  paid_count: {
-    type: String,
-  },
   current_start: {
-    type: Number,
+    type: Date,
   },
   current_end: {
-    type: Number,
+    type: Date,
   },
   ended_at: {
+    type: Date,
+  },
+  quantity: {
     type: Number,
   },
+  notes: {
+    type: [String],
+  },
   charge_at: {
-    type: Number,
+    type: Date,
+  },
+  start_at: {
+    type: Date,
+  },
+  end_at: {
+    type: Date,
   },
   auth_attempts: {
     type: Number,
   },
-  expire_by: {
+  total_count: {
     type: Number,
   },
-  addons: [
-    {
-      item: {
-        name: {
-          type: String,
-        },
-        amount: {
-          type: Number,
-        },
-        currency: {
-          type: String,
-        },
-      },
-    },
-  ],
-  offer_id: {
-    type: String,
+  paid_count: {
+    type: Number,
   },
-  notes: {
-    type: Object,
+  customer_notify: {
+    type: Boolean,
+  },
+  created_at: {
+    type: Date,
+  },
+  expire_by: {
+    type: Date,
   },
   short_url: {
     type: String,
@@ -82,7 +61,10 @@ const subscriptionsSchema = new mongoose.Schema({
   has_scheduled_changes: {
     type: Boolean,
   },
-  schedule_change_at: {
+  change_scheduled_at: {
+    type: Date,
+  },
+  source: {
     type: String,
   },
   remaining_count: {

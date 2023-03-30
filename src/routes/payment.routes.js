@@ -5,6 +5,7 @@ import {
   allQr,
   closeQr,
   createQr,
+  downtime,
   payments,
   qrCodeCustomerId,
   qrcodeFetch,
@@ -18,7 +19,7 @@ const paymentRouter = express.Router();
 
 // handle payment and order
 paymentRouter.get('/payments', payments);
-
+paymentRouter.get('/payments/downtimes', downtime);
 paymentRouter.get('/success', successResponse);
 
 paymentRouter.post('/payment', updatePayment);

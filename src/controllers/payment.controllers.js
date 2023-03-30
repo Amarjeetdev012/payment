@@ -7,6 +7,7 @@ import { Order } from '../model/order.model.js';
 import { Payment } from '../model/payment.model.js';
 import { validatePaymentVerification } from '../utils/razorpay.utils.js';
 import { QrCode } from '../model/qrCode.js';
+import { Downtime } from '../model/downtime.model.js';
 
 export const updatePayment = async (req, res) => {
   try {
@@ -97,7 +98,7 @@ export const verifyPayment = async (req, res) => {
 };
 
 export const successResponse = async (req, res) => {
-  res.redirect('https://razorpay-ahec.onrender.com');
+  res.redirect('http://localhost:3000');
 };
 
 // fetch all payments
@@ -111,6 +112,27 @@ export const payments = (req, res) => {
         payments = payment;
       }
       res.render('payments', { payments });
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const downtime = (req, res) => {
+  try {
+    instance.payments.fetchPaymentDowntime(async (err, data) => {
+      if (err) {
+        return res.status(400).send({ status: false, message: err });
+      }
+      if (data.count === 0) {
+        return res
+          .status(200)
+          .send({ status: true, message: 'no downtime found', data });
+      }
+      await Downtime.create(data);
+      return res
+        .status(200)
+        .send({ status: true, message: 'downtime data', data });
     });
   } catch (error) {
     res.status(500).send(error);
