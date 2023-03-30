@@ -87,60 +87,14 @@
             <li><a href="/customer">Customer</a></li>
             <li><a href="/payment">Payment</a></li>
             <li><a href="/subscription">Subscription</a></li>
+            <li><a href="/auth">auth</a></li>
         </ul>
     </nav>
-
     <br>
-    <h3>Enter amount and click pay now</h3>
-    <form action="/api/order/order" method="POST">
-        <label for="amount"> Enter amount:</label>
-        <input type="number" id="amount" name="amount" required><br>
-        <button type="submit">Pay Now</button>
-    </form>
-    <br>
-
-    <h3>Enter Payment id and Order id to verify payment</h3>
-    <form action="/api/payment/verify" method="POST">
-        <input type="text" name="payment_id" placeholder="Payment ID" required>
-        <input type="text" name="order_id" placeholder="Order ID" required>
-        <button type="submit">Verify Payment</button>
-    </form>
-    <br><br>
-    <br>
-
-    <h3>fill form to register yourself</h3>
-    <form action="/api/auth/register" method="POST">
-        <label for="fname"><b>First Name</b></label>
-        <input type="text" placeholder="First Name" name="fname" id="fname" required>
-        <br><br>
-        <label for="lname"><b>Last Name</b></label>
-        <input type="text" placeholder="Last Name" name="lname" id="lname" required><br><br>
-        <label for="email"><b>Email</b></label>
-        <input type="email" placeholder="Enter Email" name="email" id="email" required><br><br>
-        <label for="password"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" id="password" required><br>
-        <button type="submit" class="registerbtn">Register</button>
-    </form>
-    <h3>Enter details to login</h3>
-    <form action="/api/auth/login" method="POST">
-        <label for="email"><b>Email</b></label>
-        <input type="email" placeholder="Enter Email" name="email" id="email" required><br><br>
-        <label for="password"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" id="password" required><br>
-        <button type="submit" class="registerbtn">Login</button>
-    </form>
-
-    <h3>Click here to get all payments</h3>
-    <form action="/api/payment/payments" method="get">
-        <button type="submit">All Payment</button>
-    </form>
-    <br><br>
-
     <h3>Click here to get all orders</h3>
     <form action="/api/order/orders" method="get">
         <button type="submit">All Orders</button>
     </form>
     <br><br>
 </body>
-
 </html>

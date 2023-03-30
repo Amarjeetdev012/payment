@@ -27,9 +27,11 @@ app.post('/', (req, res) => {
 app.get('/', (req, res) => {
   res.render('home');
 });
-
 app.get('/link', (req, res) => {
   res.render('link');
+});
+app.get('/auth', (req, res) => {
+  res.render('auth');
 });
 app.get('/subscription', (req, res) => {
   res.render('subscription');
@@ -40,9 +42,11 @@ app.get('/qrcode', (req, res) => {
 app.get('/customer', (req, res) => {
   res.render('customer');
 });
-
 app.get('/success', (req, res) => {
   res.render('success');
+});
+app.get('/payment', (req, res) => {
+  res.render('pay');
 });
 
 app.use('/api', router);

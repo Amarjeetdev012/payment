@@ -26,9 +26,12 @@ export const createCustomer = async (req, res) => {
 };
 
 export const editCustomer = async (req, res) => {
-  console.log('data', req);
   const { id, name, contact, email } = req.body;
-  if (typeof contact !== Number) {
+  function numRegExpMatch(input) {
+    if (/^[0-9]*$/.test(input)) return true;
+    else return false;
+  }
+  if (!numRegExpMatch(contact)) {
     return res
       .status(400)
       .send({ status: false, message: 'number should be integer' });
@@ -52,14 +55,14 @@ export const editCustomer = async (req, res) => {
           contact: contact,
         }
       );
-      const sendData = {
-        name,
-        email,
-        contact,
-      };
+      // const sendData = {
+      //   name,
+      //   email,
+      //   contact,
+      // };
       return res
         .status(200)
-        .send({ status: true, message: 'customer updated', sendData });
+        .send({ status: true, message: 'customer updated', data });
     }
   );
 };

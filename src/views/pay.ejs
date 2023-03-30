@@ -1,0 +1,106 @@
+<h3>Enter amount and click pay now</h3>
+<form action="/api/order/order" method="POST">
+    <label for="amount"> Enter amount:</label>
+    <input type="number" id="amount" name="amount" required><br>
+    <button type="submit">Pay Now</button>
+</form>
+<br>
+
+<h3>click here to get downtime details</h3>
+<form action="/api/payment/payments" method="get">
+    <button type="submit">All Payment</button>
+</form>
+<br><br>
+
+<h3>Click here to get all payments</h3>
+<form action="/api/payment/payments/downtimes" method="get">
+    <button type="submit">All Downtime</button>
+</form>
+<br><br>
+
+<h3>Enter Payment id and Order id to verify payment</h3>
+<form action="/api/payment/verify" method="POST">
+    <input type="text" name="payment_id" placeholder="Payment ID" required>
+    <input type="text" name="order_id" placeholder="Order ID" required>
+    <button type="submit">Verify Payment</button>
+</form>
+<br><br>
+<br>
+
+<form action="api/payment/qr_codes/customer" method="get">
+    <h3>fill Customer id below to get all qr codes of customer</h3>
+    <label for="qr_id"><b>qrcode id</b></label>
+    <input type="text" placeholder="qr_id" name="qr_id" id="qr_id" required><br><br>
+    <button type="submit">all qr codes off Customer</button>
+</form>
+
+<br><br>
+<form action="api/payment/qr_codes" method="get">
+    <h3>click below to get all qr codes</h3>
+    <button type="submit">all qr codes</button>
+</form>
+<br>
+
+<form action="api/payment/qr_codes/:qr_id/payments" method="get">
+    <h3>fill qr id below to get all Payments of qr code</h3>
+    <label for="qr_id"><b>qrcode id</b></label>
+    <input type="text" placeholder="qr_id" name="qr_id" id="qr_id" required><br><br>
+    <button type="submit">all Payments of qr code</button>
+</form>
+
+<form action="api/payment/qr_codes/:qr_id" method="get">
+    <h3>fill qr code id below to get details of qr code</h3>
+    <label for="qr_id"><b>qrcode id</b></label>
+    <input type="text" placeholder="qr_id" name="qr_id" id="qr_id" required><br><br>
+    <button type="submit">details of qr code</button>
+</form>
+
+<button onclick="history.back()">Go Back</button>
+<h3>fill details and click to generate qr code</h3>
+<form action="/api/payment/qr_codes" method="post">
+    <label for="name"><b>name</b></label>
+    <input type="text" placeholder="name" name="name" id="name" required><br><br>
+    <label for="description"><b>description</b></label>
+    <input type="text" placeholder="description" name="description" id="description" required><br><br>
+    <label for="customerId"><b>customerId</b></label>
+    <input type="text" placeholder="customerId" name="customerId" id="customerId" required><br><br>
+    <button type="submit" class="qrcode">download QrCode</button>
+</form>
+
+<h3>fill qrcode id to close this qr code</h3>
+<form action="api/payment/qr_codes/:qr_id/close" method="post">
+    <label for="qr_id"><b>qrcode id</b></label>
+    <input type="text" placeholder="qr_id" name="qr_id" id="qr_id" required><br><br>
+    <button type="submit">Close QrCode</button>
+</form>
+
+<form action="api/payment/qr_codes" method="get">
+    <h3>click below to get all qr codes</h3>
+    <button type="submit">all qr codes</button>
+</form>
+<button onclick="history.back()">Go Back</button>
+<h3>Fill details to generate a payment link</h3>
+<form action="/api/link/payment_links" method="POST">
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" name="amount" required>
+    <br><br>
+    <label for="currency">Currency:</label>
+    <select id="currency" name="currency" required>
+        <option value="INR">INR</option>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+    </select>
+    <br><br>
+    <label for="notes">Notes:</label>
+    <input type="text" id="map-data" name="note" required>
+    <br><br>
+    <button type="submit">Generate Payment Link</button>
+</form>
+
+<h3>Fill details to cancel a payment link</h3>
+<form action="/api/link/cancel" method="post">
+    <label for="paymentLinkId">paymentLinkId:</label>
+    <input type="text" id="paymentLinkId" name="paymentLinkId" required>
+    <button type="submit">Cancel Payment Link</button>
+</form>

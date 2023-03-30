@@ -1,39 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Confirmation - My Business</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
         }
+css
+Copy code
+    /* Set default font and background color */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+    }
 
-        h3 {
-            color: green;
-            font-size: 24px;
-        }
+    /* Create a container to center content vertically */
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+        max-width: 600px;
+        margin: 0 auto;
+    }
 
-        a {
-            color: blue;
-            text-decoration: none;
-            border-bottom: 1px solid blue;
-        }
+    /* Style the header */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        background-color: #fff;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-        a:hover {
-            background-color: blue;
-            color: white;
-        }
-    </style>
+    /* Style the back link */
+    a.back-link {
+        color: #007bff;
+        text-decoration: none;
+        border-bottom: 1px solid #007bff;
+        transition: all 0.2s ease-in-out;
+    }
+
+    a.back-link:hover {
+        background-color: #007bff;
+        color: #fff;
+        border-bottom: 1px solid #fff;
+    }
+
+    /* Style the main content */
+    main {
+        background-color: #fff;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 32px;
+    }
+
+    h1 {
+        font-size: 32px;
+        color: #007bff;
+        margin-bottom: 16px;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 16px;
+    }
+
+    /* Style the success message */
+    .success-message {
+        color: #28a745;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 16px;
+    }
+
+    /* Style the error message */
+    .error-message {
+        color: #dc3545;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 16px;
+    }
+</style>
 </head>
-
 <body>
-    <a href="/">Back to Home</a>
-    <h3>Payment Successfully Completed</h3>
-    <p>Thank you for your payment Your payment has been processed and your account has been updated.</p>
+    <div class="container">
+        <header>
+            <a href="/" class="back-link">Back to Home</a>
+            <img src="logo.png" alt="My Business Logo">
+        </header>
+        <main>
+            <h1>Payment Confirmation</h1>
+            <div class="success-message">Payment Successfully Completed</div>
+            <p>Thank you for your payment. Your payment has been processed and your account has been updated.</p>
+        </main>
+    </div>
 </body>
-
 </html>
