@@ -34,6 +34,26 @@
     <button type="submit">All subscriptions</button>
 </form>
 
+
+<h3>click here to get all plans detail</h3>
+<form action="/api/subscribe/plans" method="get">
+    <button type="submit">All Plans</button>
+</form>
+
+<h3>fill plan Id to get detail</h3>
+<form action="/api/subscribe/plans/:id" method="get">
+    <label for="id">plan id</label>
+    <input type="text" name="id" id="id"><br><br>
+    <button type="submit">Plan data</button>
+</form>
+
+<h3>fill subscription Id to get Invoices</h3>
+<form action="/api/subscribe/invoices" method="get">
+    <label for="id">subscription id</label>
+    <input type="text" name="id" id="id"><br><br>
+    <button type="submit">Invoices</button>
+</form>
+
 <h3>fill subscription id to get details of subscription</h3>
 <form action="/api/subscribe/:sub_id" method="get">
     <label for="id">subscription id</label>

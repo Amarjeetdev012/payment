@@ -117,7 +117,8 @@ export const allPlans = (req, res) => {
       if (err) {
         return res.status(400).send({ status: true, message: err });
       }
-      return res.status(200).send({ status: true, message: 'all plans data' });
+      console.log('data', typeof data);
+      return res.render('plans', { data });
     });
   } catch (error) {
     return res.status(500).send({ status: false, message: error });
@@ -126,7 +127,8 @@ export const allPlans = (req, res) => {
 
 export const plansById = (req, res) => {
   try {
-    let id = req.params.id || req.query.id;
+    let id = req.query.id;
+    console.log('id', id);
     instance.plans.fetch(id, (err, data) => {
       if (err) {
         return res.status(400).send({ status: false, message: err });
@@ -202,18 +204,19 @@ export const resumeSubscription = (req, res) => {
 
 export const subscriptionInvoices = (req, res) => {
   try {
-    const id = req.params.id || req.query.id;
+    console.log('data', req.query.id);
+    const id = req.query.id;
     instance.invoices.all(
       {
         id,
       },
       (err, data) => {
         if (err) {
-          return res.status(400).send({ status: true, message: err });
+          return res.status(400).send({ status: false, message: err });
         }
         return res
           .status(200)
-          .send({ status: false, message: 'subscription invoices', data });
+          .send({ status: true, message: 'subscription invoices', data });
       }
     );
   } catch (error) {

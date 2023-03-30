@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Plans</title>
+</head>
+
+<body>
+    <h1>Plans</h1>
+    <p>There are <%= data.count %> plans in this collection.</p>
+    <% if (data.items.length> 0) { %>
+        <ul>
+            <% data.items.forEach(function(item) { %>
+                <li>
+                    <strong>
+                        <%= item.id %>
+                    </strong>
+                    <ul>
+                        <li>Entity: <%= item.entity %>
+                        </li>
+                        <li>Interval: <%= item.interval %>
+                        </li>
+                        <li>Period: <%= item.period %>
+                        </li>
+                        <% for (let key in item.item) { if (item.item.hasOwnProperty(key)) { %>
+                            <% if (item.item[key]==null) { %>
+                                <%= item.item[key]=undefined%>
+                                    <% } %>
+                                        <li>
+                                            <%= key %>: <%= JSON.stringify(item.item[key]) %>
+                                        </li>
+                                        <% } } %>
+                                            <li>Notes: <%= JSON.stringify(item.notes) %>
+                                            </li>
+                                            <li>Created at: <%= new Date(item.created_at * 1000).toLocaleString() %>
+                                            </li>
+                    </ul>
+                </li>
+                <% }); %>
+        </ul>
+        <% } else { %>
+            <p>No items found.</p>
+            <% } %>
+</body>
+
+</html>

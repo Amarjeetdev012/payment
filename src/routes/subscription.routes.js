@@ -16,11 +16,10 @@ import {
 const subscriptionRouter = express.Router();
 
 subscriptionRouter.get('/', allSubscriptions);
-
 subscriptionRouter.get('/plans', allPlans);
 subscriptionRouter.get('/plans/:id', plansById);
+subscriptionRouter.get('/invoices', subscriptionInvoices);
 subscriptionRouter.get('/:sub_id', SubscriptionById);
-subscriptionRouter.get('/invoices?subscription_id=:sub_id', subscriptionInvoices);
 
 subscriptionRouter.post('/', createSubscription);
 subscriptionRouter.post('/:sub_id/pause', pauseSubscription);
