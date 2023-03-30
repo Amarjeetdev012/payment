@@ -160,7 +160,8 @@ export const updateSubscription = (req, res) => {
 
 export const pauseSubscription = (req, res) => {
   try {
-    const id = req.params.id || req.query.id;
+    const id = req.body.id;
+    console.log('pause', req.body);
     instance.subscriptions.pause(
       id,
       {
@@ -208,7 +209,7 @@ export const subscriptionInvoices = (req, res) => {
     const id = req.query.id;
     instance.invoices.all(
       {
-        id,
+        subscription_id: id,
       },
       (err, data) => {
         if (err) {

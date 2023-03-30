@@ -22,8 +22,8 @@ subscriptionRouter.get('/invoices', subscriptionInvoices);
 subscriptionRouter.get('/:sub_id', SubscriptionById);
 
 subscriptionRouter.post('/', createSubscription);
-subscriptionRouter.post('/:sub_id/pause', pauseSubscription);
-subscriptionRouter.post('/:sub_id/resume', resumeSubscription);
+subscriptionRouter.post('/pause', pauseSubscription);
+subscriptionRouter.post('/resume', resumeSubscription);
 subscriptionRouter.post('/verify', verify);
 subscriptionRouter.post('/:sub_id/cancel', cancelSubscription);
 

@@ -26,8 +26,13 @@ export const createCustomer = async (req, res) => {
 };
 
 export const editCustomer = async (req, res) => {
-  const id = req.params.id;
-  const { name, contact, email } = req.body;
+  console.log('data', req);
+  const { id, name, contact, email } = req.body;
+  if (typeof contact !== Number) {
+    return res
+      .status(400)
+      .send({ status: false, message: 'number should be integer' });
+  }
   instance.customers.edit(
     id,
     {
@@ -63,7 +68,7 @@ export const allCustomer = async (req, res) => {
   try {
     instance.customers.all({}, (err, data) => {
       if (err) {
-        return res.status(400).send({ status: true, message: err });
+        return res.status(400).send({ status: false, message: err });
       }
       const result = data.items.map((customer) => {
         const customerData = {
@@ -76,7 +81,7 @@ export const allCustomer = async (req, res) => {
       data.items = result;
       return res
         .status(200)
-        .json({ status: false, message: 'all customers', data });
+        .json({ status: true, message: 'all customers', data });
     });
   } catch (error) {
     return res.status(500).send({ status: false, message: error });
@@ -84,7 +89,7 @@ export const allCustomer = async (req, res) => {
 };
 
 export const customerData = async (req, res) => {
-  const id = req.params.id;
+  const id = req.query.id;
   instance.customers.fetch(id, (err, data) => {
     if (err) {
       return res.status(400).send({ status: false, message: err });

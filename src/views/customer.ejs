@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer</title>
+</head>
+
+<body>
+    <h3>Click here to get all customers</h3>
+    <form action="/api/customer" method="get">
+        <button type="submit">Get All Customers</button>
+    </form>
+
+    <h3>Fill in customer ID to get info of customer</h3>
+    <form action="/api/customer/:id" method="get">
+        <input type="text" name="id" id="id" placeholder="Enter Customer ID" required />
+        <button type="submit">Customer Data</button>
+    </form>
+
+    <h3>Fill details to create customer</h3>
+    <form action="/api/customer/" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter Name" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter Email" required />
+
+        <label for="contact">Contact:</label>
+        <input type="tel" id="contact" name="contact" placeholder="Enter Contact" required />
+
+        <label for="gstin">GSTIN:</label>
+        <input type="text" id="gstin" name="gstin" placeholder="Enter GSTIN" required />
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <h3>fill details to update customer</h3>
+
+    <form action="/api/customer/:id?_method=PATCH" method="POST">
+        <input type="hidden" name="_method" value="PATCH">
+
+        <label for="id">Name:</label>
+        <input type="text" name="id" id="id" placeholder="Enter id" />
+
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" placeholder="Enter Name" />
+
+        <label for="contact">Contact:</label>
+        <input type="text" name="contact" id="contact" placeholder="Enter Contact" />
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" placeholder="Enter Email" />
+
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+
+</html>

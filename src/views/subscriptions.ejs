@@ -6,9 +6,40 @@
 </head>
 
 <body>
-    <button onclick="history.back()">Go Back</button>
+
+    <head>
+        <title>All Subscriptions</title>
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th,
+            td {
+                padding: 8px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            .no-subscriptions {
+                font-style: italic;
+                color: gray;
+            }
+        </style>
+    </head>
+
 
     <h1>Subscriptions</h1>
+
     <% if (data.items.length) { %>
         <table>
             <thead>
@@ -26,11 +57,12 @@
                     <th>Url</th>
                 </tr>
             </thead>
+
             <tbody>
-                <% data.items.forEach(function(item,index) { %>
+                <% data.items.forEach(function(item, index) { %>
                     <tr>
                         <td>
-                            <%=index + 1 %>
+                            <%= index + 1 %>
                         </td>
                         <td>
                             <%= item.id %>

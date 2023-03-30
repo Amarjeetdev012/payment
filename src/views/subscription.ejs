@@ -1,78 +1,99 @@
 <button onclick="history.back()">Go Back</button>
-<h3>fill this form to create a subscription</h3>
-<form method="post" action="/api/subscribe">
-    <label for="period">Period:"daily" | "weekly" | "monthly" | "yearly" </label>
-    <input type="text" name="period" id="period" required><br><br>
-
-    <label for="interval">Interval:</label>
-    <input type="text" name="interval" id="interval" required><br><br>
-
-    <label for="quantity">quantity:</label>
-    <input type="text" name="quantity" id="quantity" required><br><br>
-
-    <label for="total_count">total_count for subscription:</label>
-    <input type="text" name="total_count" id="total_count" required><br><br>
-
-    <label for="name">Item Name:</label>
-    <input type="text" name="item[name]" id="name" required><br><br>
-
-    <label for="amount">Item Amount:</label>
-    <input type="text" name="item[amount]" id="amount" required><br><br>
-    <label for="currency">Item Currency:</label>
-    <select name="item[currency]" id="currency">
-        <option value="INR" selected>Indian Rupee (INR)</option>
-    </select><br><br>
-
-    <label for="description">Item Description:</label>
-    <input type="text" name="item[description]" id="description" required><br><br>
-
-    <input type="submit" value="Submit">
+<section>
+    <h2>Subscription Creation</h2>
+    <form method="post" action="/api/subscribe">
+        <div>
+            <label for="period">Period:</label>
+            <select name="period" id="period" required>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+            </select>
+        </div>
+        <div>
+            <label for="interval">Interval:</label>
+            <input type="number" name="interval" id="interval" required>
+        </div>
+        <div>
+            <label for="quantity">Quantity:</label>
+            <input type="number" name="quantity" id="quantity" required>
+        </div>
+        <div>
+            <label for="total_count">Total Count for Subscription:</label>
+            <input type="number" name="total_count" id="total_count" required>
+        </div>
+        <div>
+            <label for="name">Item Name:</label>
+            <input type="text" name="item[name]" id="name" required>
+        </div>
+        <div>
+            <label for="amount">Item Amount:</label>
+            <input type="number" name="item[amount]" id="amount" required>
+        </div>
+        <div>
+            <label for="currency">Item Currency:</label>
+            <select name="item[currency]" id="currency">
+                <option value="INR" selected>Indian Rupee (INR)</option>
+            </select>
+        </div>
+        <div>
+            <label for="description">Item Description:</label>
+            <textarea name="item[description]" id="description" required></textarea>
+        </div>
+        <button type="submit">Create Subscription</button>
+    </form>
+</section>
+<h3>Pause Subscription</h3>
+<form action="/api/subscribe/pause" method="post">
+    <label for="subscription-id">Subscription ID:</label>
+    <input type="text" name="id" id="subscription-id"><br><br>
+    <input type="submit" value="Pause Subscription">
 </form>
-
-<h3>click here to get all subscriptions detail</h3>
+<h3>Resume Subscription</h3>
+<form action="/api/subscribe/resume" method="post">
+    <label for="subscription-id">Subscription ID:</label>
+    <input type="text" name="id" id="subscription-id"><br><br>
+    <input type="submit" value="Resume Subscription">
+</form>
+<h3>All Subscriptions</h3>
 <form action="/api/subscribe/" method="get">
-    <button type="submit">All subscriptions</button>
+    <button type="submit">Get All Subscriptions</button>
 </form>
-
-
-<h3>click here to get all plans detail</h3>
+<h3>All Plans</h3>
 <form action="/api/subscribe/plans" method="get">
-    <button type="submit">All Plans</button>
+    <button type="submit">Get All Plans</button>
 </form>
-
-<h3>fill plan Id to get detail</h3>
+<h3>Plan Details</h3>
 <form action="/api/subscribe/plans/:id" method="get">
-    <label for="id">plan id</label>
-    <input type="text" name="id" id="id"><br><br>
-    <button type="submit">Plan data</button>
+    <label for="plan-id">Plan ID:</label>
+    <input type="text" name="id" id="plan-id"><br><br>
+    <button type="submit">Get Plan Details</button>
 </form>
-
-<h3>fill subscription Id to get Invoices</h3>
+<h3>Subscription Invoices</h3>
 <form action="/api/subscribe/invoices" method="get">
-    <label for="id">subscription id</label>
-    <input type="text" name="id" id="id"><br><br>
-    <button type="submit">Invoices</button>
+    <label for="subscription-id">Subscription ID:</label>
+    <input type="text" name="id" id="subscription-id"><br><br>
+    <button type="submit">Get Invoices</button>
 </form>
-
-<h3>fill subscription id to get details of subscription</h3>
+<h3>Subscription Details</h3>
 <form action="/api/subscribe/:sub_id" method="get">
-    <label for="id">subscription id</label>
-    <input type="text" name="id" id="id"><br><br>
-    <button type="submit">subscription details</button>
+    <label for="subscription-id">Subscription ID:</label>
+    <input type="text" name="id" id="subscription-id"><br><br>
+    <button type="submit">Get Subscription Details</button>
 </form>
-
-<h3>fill this form to create a Customer</h3>
+<h3>Create Customer</h3>
 <form method="post" action="/api/customer/">
-    <label for="name">name</label>
-    <input type="text" name="name" id="name"><br><br>
+    <label for="customer-name">Name:</label>
+    <input type="text" name="name" id="customer-name"><br><br>
 
-    <label for="contact">contact:</label>
-    <input type="text" name="contact" id="contact"><br><br>
+    <label for="customer-contact">Contact:</label>
+    <input type="text" name="contact" id="customer-contact"><br><br>
 
-    <label for="email">email:</label>
-    <input type="text" name="email" id="email"><br><br>
+    <label for="customer-email">Email:</label>
+    <input type="text" name="email" id="customer-email"><br><br>
 
-    <label for="gstin">gstin:</label>
-    <input type="text" name="gstin" id="gstin"><br><br>
-    <input type="submit" value="Submit">
+    <label for="customer-gstin">GSTIN:</label>
+    <input type="text" name="gstin" id="customer-gstin"><br><br>
+    <input type="submit" value="Create Customer">
 </form>

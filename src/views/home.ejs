@@ -3,9 +3,7 @@
 
 <head>
     <title>Razorpay Payment Integration</title>
-</head>
-
-<body>
+    <title>Razorpay Payment Integration</title>
     <style>
         .myNav {
             display: block;
@@ -27,15 +25,70 @@
             text-align: center;
             padding: 14px 16px;
         }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        h3 {
+            margin-top: 30px;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 3px;
+            border: none;
+            margin-bottom: 20px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+
+        button[type="submit"]:active {
+            background-color: #3e8e41;
+            transform: translateY(1px);
+        }
     </style>
+</head>
+
+<body>
     <nav class="myNav">
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="subscription">subscription</a></li>
-            <li><a href="qrcode">qrcode</a></li>
+            <li><a href="/subscription">Subscription</a></li>
+            <li><a href="/qrcode">QR Code</a></li>
+            <li><a href="/customer">Customer</a></li>
+            <li><a href="/payment">Payment</a></li>
+            <li><a href="/subscription">Subscription</a></li>
         </ul>
     </nav>
-
 
     <br>
     <h3>Enter amount and click pay now</h3>
@@ -68,7 +121,6 @@
         <input type="password" placeholder="Enter Password" name="password" id="password" required><br>
         <button type="submit" class="registerbtn">Register</button>
     </form>
-
     <h3>Enter details to login</h3>
     <form action="/api/auth/login" method="POST">
         <label for="email"><b>Email</b></label>
@@ -89,7 +141,6 @@
         <button type="submit">All Orders</button>
     </form>
     <br><br>
-
 </body>
 
 </html>
