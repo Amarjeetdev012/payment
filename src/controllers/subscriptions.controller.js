@@ -60,7 +60,6 @@ export const allSubscriptions = async (req, res) => {
       if (err) {
         return res.status(400).send({ status: false, message: err });
       }
-      console.log('data', data);
       return res.render('subscriptions', { data: data });
     });
   } catch (error) {
