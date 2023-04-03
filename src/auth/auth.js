@@ -41,6 +41,11 @@ export const login = async (req, res) => {
           .status(400)
           .send({ status: false, message: 'wrong password' });
       }
+      if (!result) {
+        return res
+          .status(400)
+          .send({ status: false, message: 'wrong password' });
+      }
       if (user && jwt_secret) {
         token = await generateToken({ id: user._id, email: email }, jwt_secret);
       }
@@ -48,6 +53,7 @@ export const login = async (req, res) => {
       res.cookie('token', token, {
         maxAge: 864000,
       });
+      console.log('result', result);
       return res
         .status(200)
         .send({ status: true, message: 'user login successfully', token });
