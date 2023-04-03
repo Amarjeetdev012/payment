@@ -24,7 +24,7 @@ export const createSubscription = async (req, res) => {
       },
     });
     if (plan) {
-      Plan.create(plan);
+      await Plan.create(plan);
     }
     const subscription = await instance.subscriptions.create({
       plan_id: plan.id,
@@ -33,11 +33,17 @@ export const createSubscription = async (req, res) => {
       quantity: quantity,
       total_count: total_count,
     });
-    console.log('subscription', subscription);
     if (subscription) {
       await Subscriptions.create(subscription);
     }
-    return res.redirect(`${subscription.short_url}`);
+
+    const redirectUrl = `${subscription.short_url}?redirect=true`;
+    return res.status(201).send({
+      status: true,
+      message: 'subscription link',
+      link: subscription.short_url,
+      redirect: redirectUrl,
+    });
   } catch (error) {
     return res.status(500).send({ status: false, message: error });
   }
